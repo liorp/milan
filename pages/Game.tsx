@@ -2,7 +2,13 @@ import React, { useRef, useState } from 'react'
 import { useImmer } from 'use-immer'
 import Keyboard from 'react-simple-keyboard'
 import 'react-simple-keyboard/build/css/index.css'
-import { numberOfRows, numberOfLetters, getCorrectAndPresent, word, letterToBgColor } from './GameController'
+import {
+    numberOfRows,
+    numberOfLetters,
+    getCorrectAndPresent,
+    word,
+    letterToBgColor,
+} from './GameController'
 
 export const Game = () => {
     const [letters, setLetters] = useImmer<string[][]>(
@@ -57,12 +63,15 @@ export const Game = () => {
     }
 
     return (
-        <>
-            <div className="grid grid-cols-5 gap-5">
+        <div className="w-full flex flex-col items-center">
+            <div className="grid grid-cols-5 gap-2 place-content-center">
                 {letters
                     .map((r, i) => {
                         const finishedRow = finishRows[i]
-                        const correctAndPresent = getCorrectAndPresent(word, r)
+                        const correctAndPresent = getCorrectAndPresent(
+                            word,
+                            r.join('')
+                        )
                         return r.map((l, j) => {
                             const type = correctAndPresent[j]
                             return (
@@ -106,6 +115,6 @@ export const Game = () => {
                 physicalKeyboardHighlight
                 physicalKeyboardHighlightPress
             />
-        </>
+        </div>
     )
 }

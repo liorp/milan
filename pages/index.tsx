@@ -6,15 +6,16 @@ export default function Home() {
     return (
         <div>
             <Head>
-                <title>Create Next App</title>
+                <title>מילן</title>
                 <meta name="ilan" content="a cool game" />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
 
-            <main>
-                <h1>מילן</h1>
-
-                <p>זה כמו וורדל אבל בעברית</p>
+            <main className="text-center m-4">
+                <h1 className="m-auto mb-3 min-h-fit leading-loose w-max bg-gradient-to-r from-green-300 via-yellow-300 to-pink-300 text-gradient text-5xl font-bold transition transform hover:-rotate-6">
+                    מילן
+                </h1>
+                <p className="m-auto mb-3 min-h-fit">זה כמו וורדל אבל בעברית</p>
             </main>
 
             <Game />
