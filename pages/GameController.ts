@@ -8,6 +8,7 @@ export enum Letter {
     Miss,
 }
 export const letterToBgColor = {
+    [Letter.Miss]: 'bg-grey-400',
     [Letter.Present]: 'bg-orange-400',
     [Letter.Correct]: 'bg-green-400',
 }

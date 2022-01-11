@@ -29,11 +29,9 @@ export const Game = () => {
     const currentPlace = flatLetters.findIndex((l) => l === '')
     const currentRow = Math.floor(currentPlace / numberOfLetters)
     const currentColumn = currentPlace % numberOfLetters
-    const lost =
-        currentPlace === numberOfLetters * numberOfRows &&
-        !wordInGuesses(word, board)
+    const lost = !wordInGuesses(word, board) && finishRows[numberOfRows - 1]
     const won = wordInGuesses(word, board) && finishRows[currentRow - 1]
-    const finishedGame = lost || won
+    const finishedGame = (lost || won) && currentPlace === -1
 
     const keyboard = useRef()
 
@@ -42,14 +40,16 @@ export const Game = () => {
 
         // Waiting for next row
         if (
-            currentColumn === 0 &&
-            currentRow > 0 &&
-            !finishRows[currentRow - 1]
+            (currentColumn === 0 &&
+                currentRow > 0 &&
+                !finishRows[currentRow - 1]) ||
+            currentPlace === -1
         ) {
             if (button === '{enter}') {
                 setActive(false)
                 setFinishRows((r) => {
-                    r[currentRow - 1] = true
+                    r[currentPlace === -1 ? numberOfRows - 1 : currentRow - 1] =
+                        true
                 })
                 setActive(true)
             }
@@ -71,6 +71,7 @@ export const Game = () => {
 
     return (
         <div className="w-full h-full flex flex-col items-center">
+            {JSON.stringify(finishRows)}
             {finishedGame && (
                 <div
                     className={`transition alert ${lost && 'alert-error'} ${
@@ -80,7 +81,7 @@ export const Game = () => {
                     <div className="flex-1">
                         <label className="mx-3">
                             {won && 'איזה כיף! '}
-                            המילה הייתה {word}!{lost && 'איך לא ידעת כפרה?'}
+                            המילה הייתה {word}! {lost && 'איך לא ידעת כפרה?'}
                         </label>
                     </div>
                     <div className="flex-none">
@@ -101,10 +102,7 @@ export const Game = () => {
                 {board
                     .map((r, i) => {
                         const finishedRow = finishRows[i]
-                        const correctAndPresent = getCorrectAndPresent(
-                            word,
-                            r
-                        )
+                        const correctAndPresent = getCorrectAndPresent(word, r)
                         return r.map((l, j) => {
                             const type = correctAndPresent[j]
                             return (
