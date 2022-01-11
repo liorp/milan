@@ -8,6 +8,7 @@ import {
     getCorrectAndPresent,
     word,
     letterToBgColor,
+    wordInGuesses,
 } from './GameController'
 
 export const Game = () => {
@@ -25,6 +26,9 @@ export const Game = () => {
     const currentPlace = flatLetters.findIndex((l) => l === '')
     const currentRow = Math.floor(currentPlace / numberOfLetters)
     const currentColumn = currentPlace % numberOfLetters
+    const finishedGame =
+        currentPlace === numberOfLetters * numberOfRows ||
+        wordInGuesses(word, letters)
 
     const keyboard = useRef()
 
@@ -67,6 +71,18 @@ export const Game = () => {
 
     return (
         <div className="w-full h-full flex flex-col items-center">
+            {
+                <div className="alert">
+                    <div className="flex-1">
+                        <label className="mx-3">המילה הייתה</label>
+                    </div>
+                    <div className="flex-none">
+                        <button className="btn btn-sm btn-ghost mr-2">
+                            שיתוף
+                        </button>
+                    </div>
+                </div>
+            }
             <div className="grid grid-cols-5 gap-1 place-content-center flex-grow">
                 {letters
                     .map((r, i) => {

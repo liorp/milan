@@ -1,7 +1,11 @@
 import React from 'react'
-import { getCorrectAndPresent, Letter } from '../pages/GameController'
+import {
+    getCorrectAndPresent,
+    Letter,
+    wordInGuesses,
+} from '../pages/GameController'
 
-describe('GameController', () => {
+describe('getCorrectAndPresent', () => {
     it('should generate correct for the same words', () => {
         const result = getCorrectAndPresent('word', 'word')
         expect(result).toEqual([
@@ -48,5 +52,22 @@ describe('GameController', () => {
             Letter.Miss,
             Letter.Correct,
         ])
+    })
+})
+
+describe('wordInGuesses', () => {
+    it('should return true for word in guesses', () => {
+        const result = wordInGuesses('word', [
+            ['n', 'o', 'd', 'd'],
+            ['w', 'o', 'r', 'd'],
+        ])
+        expect(result).toBeTruthy()
+    })
+    it('should return false for word not in guesses', () => {
+        const result = wordInGuesses('word', [
+            ['n', 'o', 'd', 'd'],
+            ['w', 'o', 'j', 'd'],
+        ])
+        expect(result).toBeFalsy()
     })
 })

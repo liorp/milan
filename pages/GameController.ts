@@ -10,6 +10,14 @@ export const letterToBgColor = {
     [Letter.Present]: 'bg-orange-400',
     [Letter.Correct]: 'bg-green-400',
 }
+
+export const wordInGuesses = (word: string, guesses: string[][]): boolean => {
+    for (let i = 0; i < guesses.length; i++) {
+        if (word === guesses[i].join('')) return true
+    }
+    return false
+}
+
 export const getCorrectAndPresent = (word: string, guess: string): Letter[] => {
     let correctAndPresent = {
         guess: Array(guess.length).fill(Letter.Miss),
