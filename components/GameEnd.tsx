@@ -1,18 +1,19 @@
 import React from 'react'
 import { Board, emojiFromGuesses } from '../controllers/GameController'
+import { useWord } from '../hooks/useWord'
 import ShareButton from './ShareButton'
 
 export const GameEnd = ({
     won,
     lost,
-    word,
     board,
 }: {
     won: boolean
     lost: boolean
-    word: string
     board: Board
 }) => {
+    const word = useWord()
+
     return (
         <div
             className={`mb-2 transition alert ${lost && 'alert-error'} ${

@@ -2,7 +2,7 @@
     "name": "milan",
     "private": true,
     "scripts": {
-        "dev": "next dev",
+        "dev": "next dev -H 10.100.102.9",
         "build": "next build",
         "start": "next start",
         "lint": "next lint",

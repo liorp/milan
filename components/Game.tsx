@@ -7,7 +7,6 @@ import {
     numberOfLetters,
     wordInGuesses,
     Board,
-    emojiFromGuesses,
     endOfWordToRegularLetters,
     regularToEndOfWordLetters,
     keyboardLettersFromGuesses,
@@ -16,8 +15,10 @@ import {
 } from '../controllers/GameController'
 import { GameBoard } from './GameBoard'
 import { GameEnd } from './GameEnd'
+import { useWord } from '../hooks/useWord'
 
-export const Game = ({ word = 'לחמים' }: { word: string }) => {
+export const Game = () => {
+    const word = useWord()
     const [board, setBoard] = useImmer<Board>(
         Array(numberOfRows)
             .fill(0)
@@ -111,9 +112,9 @@ export const Game = ({ word = 'לחמים' }: { word: string }) => {
     return (
         <div className="w-full h-full flex flex-col items-center">
             {finishedGame && (
-                <GameEnd won={won} lost={lost} word={word} board={board} />
+                <GameEnd won={won} lost={lost} board={board} />
             )}
-            <GameBoard board={board} finishRows={finishRows} word={word} />
+            <GameBoard board={board} finishRows={finishRows} />
             <br />
 
             <div className="min-w-[22rem] min-h-[8rem]">
