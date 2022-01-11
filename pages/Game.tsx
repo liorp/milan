@@ -71,7 +71,6 @@ export const Game = () => {
 
     return (
         <div className="w-full h-full flex flex-col items-center">
-            {JSON.stringify(finishRows)}
             {finishedGame && (
                 <div
                     className={`transition alert ${lost && 'alert-error'} ${
