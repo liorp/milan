@@ -1,5 +1,6 @@
 import React from 'react'
 import {
+    generateEmojiFromGuesses,
     getCorrectAndPresent,
     Letter,
     wordInGuesses,
@@ -69,5 +70,17 @@ describe('wordInGuesses', () => {
             ['w', 'o', 'j', 'd'],
         ])
         expect(result).toBeFalsy()
+    })
+})
+
+describe('generateEmojiFromGuesses', () => {
+    it('should generate an emoji board', () => {
+        const result = generateEmojiFromGuesses('word', [
+            ['n', 'o', 'd', 'r'],
+            ['t', 'o', 'l', 'd'],
+            ['g', 'r', 'o', 'd'],
+            ['w', 'o', 'r', 'd'],
+        ])
+        expect(result).toEqual(`⬛🟩🟨🟨\n⬛🟩⬛🟩\n⬛🟨🟨🟩\n🟩🟩🟩🟩`)
     })
 })

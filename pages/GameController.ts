@@ -1,3 +1,4 @@
+export type Board = string[][]
 export const numberOfLetters = 5
 export const numberOfRows = 6
 export const word = 'לחמים'
@@ -11,7 +12,28 @@ export const letterToBgColor = {
     [Letter.Correct]: 'bg-green-400',
 }
 
-export const wordInGuesses = (word: string, guesses: string[][]): boolean => {
+export const letterToEmoji = {
+    [Letter.Present]: '🟨',
+    [Letter.Correct]: '🟩',
+    [Letter.Miss]: '⬛',
+}
+
+export const generateEmojiFromGuesses = (
+    word: string,
+    guesses: Board
+): string => {
+    let content = []
+    for (let i = 0; i < guesses.length; i++) {
+        content.push(
+            getCorrectAndPresent(word, guesses[i].join(''))
+                .map((l) => letterToEmoji[l])
+                .join('')
+        )
+    }
+    return content.join('\n')
+}
+
+export const wordInGuesses = (word: string, guesses: Board): boolean => {
     for (let i = 0; i < guesses.length; i++) {
         if (word === guesses[i].join('')) return true
     }

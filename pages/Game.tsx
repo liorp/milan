@@ -9,10 +9,13 @@ import {
     word,
     letterToBgColor,
     wordInGuesses,
+    Board,
+    generateEmojiFromGuesses,
 } from './GameController'
+import ShareButton from './ShareButton'
 
 export const Game = () => {
-    const [letters, setLetters] = useImmer<string[][]>(
+    const [board, setBoard] = useImmer<Board>(
         Array(numberOfRows)
             .fill(0)
             .map(() => Array(numberOfLetters).fill(''))
@@ -21,24 +24,21 @@ export const Game = () => {
         Array(numberOfRows).fill(false)
     )
     const [active, setActive] = useState(true)
-    const flatLetters = letters.flat()
+    const flatLetters = board.flat()
 
     const currentPlace = flatLetters.findIndex((l) => l === '')
     const currentRow = Math.floor(currentPlace / numberOfLetters)
     const currentColumn = currentPlace % numberOfLetters
-    const finishedGame =
-        currentPlace === numberOfLetters * numberOfRows ||
-        wordInGuesses(word, letters)
+    const lost =
+        currentPlace === numberOfLetters * numberOfRows &&
+        !wordInGuesses(word, board)
+    const won = wordInGuesses(word, board)
+    const finishedGame = lost || won
 
     const keyboard = useRef()
 
     const onKeyPress = (button) => {
-        console.log(button)
-        if (!active) {
-            return
-        }
-        // Game ended
-        if (currentPlace === numberOfLetters * numberOfRows) return
+        if (finishedGame || !active) return
 
         // Waiting for next row
         if (
@@ -57,13 +57,13 @@ export const Game = () => {
         }
 
         if (button === '{bksp}') {
-            setLetters((l) => {
+            setBoard((l) => {
                 l[currentRow][currentColumn - 1] = ''
             })
             return
         }
         if (button !== '{enter}') {
-            setLetters((l) => {
+            setBoard((l) => {
                 l[currentRow][currentColumn] = button
             })
         }
@@ -72,19 +72,33 @@ export const Game = () => {
     return (
         <div className="w-full h-full flex flex-col items-center">
             {
-                <div className="alert">
+                <div
+                    className={`alert ${lost && 'alert-error'} ${
+                        won && 'alert-success'
+                    }`}
+                >
                     <div className="flex-1">
-                        <label className="mx-3">המילה הייתה</label>
+                        <label className="mx-3">
+                            {won && 'איזה כיף! '}
+                            המילה הייתה {word}!{lost && 'איך לא ידעת כפרה?'}
+                        </label>
                     </div>
                     <div className="flex-none">
                         <button className="btn btn-sm btn-ghost mr-2">
-                            שיתוף
+                            <ShareButton
+                                label="שיתוף"
+                                title="גם אני נפלתי למילן"
+                                text={`זה הלוח שלי: ${generateEmojiFromGuesses(
+                                    word,
+                                    board
+                                )}`}
+                            />
                         </button>
                     </div>
                 </div>
             }
             <div className="grid grid-cols-5 gap-1 place-content-center flex-grow">
-                {letters
+                {board
                     .map((r, i) => {
                         const finishedRow = finishRows[i]
                         const correctAndPresent = getCorrectAndPresent(
