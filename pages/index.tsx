@@ -4,7 +4,7 @@ import { Game } from './Game'
 
 export default function Home() {
     return (
-        <div>
+        <div className="flex flex-col h-screen">
             <Head>
                 <title>מילן</title>
                 <meta name="ilan" content="a cool game" />
@@ -22,28 +22,24 @@ export default function Home() {
             </Head>
 
             <main className="text-center m-4">
-                <h1 className="m-auto mb-3 min-h-fit leading-loose w-max bg-gradient-to-r from-green-300 via-yellow-300 to-pink-300 text-gradient text-5xl font-bold transition transform hover:-rotate-6">
+                <h1 className="m-auto mb-3 min-h-fit leading-loose w-max bg-gradient-to-r from-green-300 via-yellow-300 to-pink-300 text-gradient text-7xl font-bold transition transform hover:-rotate-6">
                     מילן
                 </h1>
-                <p className="m-auto mb-3 min-h-fit">זה כמו וורדל אבל בעברית</p>
+                <p className="m-auto mb-3 min-h-fit text-xl">
+                    זה כמו וורדל אבל בעברית
+                </p>
             </main>
 
-            <Game />
-            <footer>
+            <div className="flex-grow">
+                <Game />
+            </div>
+            <footer className="m-2" dir="ltr">
                 <a
-                    href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
+                    href="https://liorp.github.io"
                     target="_blank"
                     rel="noopener noreferrer"
                 >
-                    Powered by{' '}
-                    <span>
-                        <Image
-                            src="/vercel.svg"
-                            alt="Vercel Logo"
-                            width={72}
-                            height={16}
-                        />
-                    </span>
+                    נוצר על ידי ליאור פולק
                 </a>
             </footer>
         </div>

@@ -18,11 +18,22 @@ body {
         sans-serif;
 }
 
-a {
-    color: inherit;
-    text-decoration: none;
+.hg-theme-default.hg-milan-theme {
+    @apply text-black h-full;
 }
 
-* {
-    box-sizing: border-box;
+.hg-theme-default.hg-milan-theme .hg-rows {
+    @apply grid place-items-stretch place-content-stretch h-full;
+}
+
+.hg-theme-default.hg-milan-theme .hg-row {
+    @apply h-full m-1;
+}
+
+.hg-milan-theme.hg-milan-theme .hg-button {
+    height: 85%;
+}
+
+.hg-theme-default.hg-milan-theme .hg-row > div:last-child {
+    @apply mr-1;
 }
