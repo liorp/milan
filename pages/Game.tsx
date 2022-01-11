@@ -29,6 +29,7 @@ export const Game = () => {
     const keyboard = useRef()
 
     const onKeyPress = (button) => {
+        console.log(button)
         if (!active) {
             return
         }
@@ -57,9 +58,11 @@ export const Game = () => {
             })
             return
         }
-        setLetters((l) => {
-            l[currentRow][currentColumn] = button
-        })
+        if (button !== '{enter}') {
+            setLetters((l) => {
+                l[currentRow][currentColumn] = button
+            })
+        }
     }
 
     return (
@@ -74,7 +77,6 @@ export const Game = () => {
                         )
                         return r.map((l, j) => {
                             const type = correctAndPresent[j]
-                            console.log(finishedRow && letterToBgColor[type])
                             return (
                                 <span
                                     key={i * numberOfRows + j}
@@ -95,7 +97,7 @@ export const Game = () => {
             </div>
             <br />
 
-            <div className="lg:w-5/12 lg:h-1/6">
+            <div className="lg:w-5/12 lg:h-1/5">
                 <Keyboard
                     keyboardRef={(r) => (keyboard.current = r)}
                     theme="hg-theme-default hg-theme-ios hg-milan-theme"
