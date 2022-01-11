@@ -6,6 +6,46 @@ import 'react-simple-keyboard/build/css/index.css'
 const numberOfLetters = 5
 const numberOfRows = 6
 const word = 'לחמים'
+enum Letter {
+    Present,
+    Correct,
+    Miss,
+}
+
+const letterToBgColor = {
+    [Letter.Present]: 'bg-orange-400',
+    [Letter.Correct]: 'bg-green-400',
+}
+
+const getCorrectAndPresent = (word, guess) => {
+    let correctAndPresent = {
+        guess: Array(guess.length).fill(Letter.Miss),
+        word: Array(guess.length).fill(Letter.Miss),
+    }
+
+    // For each letter of guess, check if it's correct
+    for (let i = 0; i < word.length; i++) {
+        if (word[i] === guess[i])
+            correctAndPresent.guess[i] = correctAndPresent.word[i] =
+                Letter.Correct
+    }
+
+    // Now the tricky part is to find the present
+    // A letter is present iff it appears in the word somewhere that is not already present or correct
+    for (let i = 0; i < guess.length; i++) {
+        for (let j = 0; j < word.length; j++) {
+            if (
+                guess[i] === word[j] &&
+                correctAndPresent.word[j] !== Letter.Correct &&
+                correctAndPresent.word[j] !== Letter.Present
+            )
+                correctAndPresent.guess[i] = correctAndPresent.word[j] =
+                    Letter.Present
+        }
+    }
+
+    return correctAndPresent.guess
+}
 
 export const Game = () => {
     const [letters, setLetters] = useImmer<string[][]>(
@@ -65,20 +105,16 @@ export const Game = () => {
                 {letters
                     .map((r, i) => {
                         const finishedRow = finishRows[i]
-                        console.log(finishedRow)
+                        const correctAndPresent = getCorrectAndPresent(word, r)
                         return r.map((l, j) => {
-                            const bul = word[j] == l
-                            const hit = l !== '' && word.indexOf(l) !== -1
-                            console.log('word' + word + 'le' + l + hit + bul)
+                            const type = correctAndPresent[j]
                             return (
                                 <span
                                     key={i * numberOfRows + j}
                                     className={`border border-r-2 border-gray-400 h-10 w-10 transition-colors duration-500 delay-[${
                                         j * 6000
                                     }ms] ${
-                                        finishedRow &&
-                                        ((bul && 'bg-green-400') ||
-                                            (hit && 'bg-orange-400'))
+                                        finishedRow && letterToBgColor[type]
                                     }`}
                                 >
                                     {l}
