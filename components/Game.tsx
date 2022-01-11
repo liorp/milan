@@ -14,8 +14,8 @@ import {
     emojiFromGuesses,
     endOfWordToRegularLetters,
     regularToEndOfWordLetters,
-} from '../GameController'
-import ShareButton from '../ShareButton'
+} from '../controllers/GameController'
+import ShareButton from './ShareButton'
 
 export const Game = ({ word = 'לחמים' }: { word: string }) => {
     const [board, setBoard] = useImmer<Board>(

@@ -3,7 +3,7 @@ import {
     getCorrectAndPresent,
     Letter,
     wordInGuesses,
-} from '../pages/GameController'
+} from '../controllers/GameController'
 
 describe('getCorrectAndPresent', () => {
     it('should generate correct for the same words', () => {

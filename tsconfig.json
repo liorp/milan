@@ -23,7 +23,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
-  ],
+, "controllers/GameController.ts"  ],
   "exclude": [
     "node_modules"
   ]
