@@ -116,7 +116,7 @@ export const Game = ({ word = 'לחמים' }: { word: string }) => {
             <GameBoard board={board} finishRows={finishRows} word={word} />
             <br />
 
-            <div className="lg:w-5/12 lg:h-1/5">
+            <div className="min-w-[22rem] min-h-[8rem]">
                 <Keyboard
                     keyboardRef={(r) => (keyboard.current = r)}
                     theme="hg-theme-default hg-theme-ios hg-milan-theme"

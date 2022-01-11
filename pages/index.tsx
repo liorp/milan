@@ -43,10 +43,10 @@ export default function Home({ word }: { word: string }) {
             </Head>
 
             <main className="text-center m-4">
-                <h1 className="m-auto mb-3 min-h-fit leading-loose w-max bg-gradient-to-r from-green-300 via-yellow-300 to-pink-300 text-gradient text-7xl font-bold transition transform hover:-rotate-6">
+                <h1 className="m-auto mb-1 min-h-fit leading-loose w-max bg-gradient-to-r from-green-300 via-yellow-300 to-pink-300 text-gradient text-4xl font-bold transition transform hover:-rotate-6">
                     מילן
                 </h1>
-                <p className="m-auto mb-3 min-h-fit text-xl">
+                <p className="m-auto mb-1 min-h-fit text-lg">
                     זה כמו וורדל אבל בעברית
                 </p>
             </main>

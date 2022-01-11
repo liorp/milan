@@ -34,6 +34,14 @@ body {
     height: 85%;
 }
 
+.hg-milan-theme.hg-milan-theme .hg-button span {
+    @apply text-2xl;
+}
+
 .hg-theme-default.hg-milan-theme .hg-row > div:last-child {
     @apply mr-1;
+}
+
+.hg-theme-default.hg-milan-theme .hg-row > div:first-child {
+    @apply pr-2 pl-3;
 }

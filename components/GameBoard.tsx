@@ -21,13 +21,12 @@ export const GameBoard = ({
                 .map((r, i) => {
                     const finishedRow = finishRows[i]
                     const correctAndPresent = getCorrectAndPresent(word, r)
-                    console.log(correctAndPresent)
                     return r.map((l, j) => {
                         const type = correctAndPresent[j]
                         return (
                             <span
                                 key={i * numberOfRows + j}
-                                className={`flex items-center justify-center text-xl font-bold text-center border-r-2 border-2 h-16 w-16 transition-colors duration-500 delay-[${
+                                className={`flex items-center justify-center text-xl font-bold text-center border-r-2 border-2 h-10 w-10 transition-colors duration-500 delay-[${
                                     j * 1000
                                 }ms] ${
                                     finishedRow && letterTypeToBgColor[type]
