@@ -88,7 +88,6 @@ export const Game = ({ word = 'לחמים' }: { word: string }) => {
 
     return (
         <div className="w-full h-full flex flex-col items-center">
-            {word}
             {finishedGame && (
                 <div
                     className={`transition alert ${lost && 'alert-error'} ${

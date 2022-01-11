@@ -38,7 +38,30 @@ export const letterToEmoji = {
 }
 
 export const keyboardLettersFromGuesses = (word: string, guesses: Board) => {
-    let letters = ['אבגדהוזחטיכלמנסעפצקרשת']
+    let letters = {
+        א: '',
+        ב: '',
+        ג: '',
+        ד: '',
+        ה: '',
+        ו: '',
+        ז: '',
+        ח: '',
+        ט: '',
+        י: '',
+        כ: '',
+        ל: '',
+        מ: '',
+        נ: '',
+        ס: '',
+        ע: '',
+        פ: '',
+        צ: '',
+        ק: '',
+        ר: '',
+        ש: '',
+        ת: '',
+    }
     let content = []
     for (let i = 0; i < guesses.length; i++) {
         content.push(
