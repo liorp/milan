@@ -39,7 +39,11 @@ body {
 }
 
 .hg-theme-default.hg-milan-theme .hg-row > div:last-child {
-    @apply mr-1;
+    @apply mr-1 text-sm;
+}
+
+.hg-theme-default.hg-milan-theme .hg-row > div:last-child span {
+    @apply text-sm;
 }
 
 .hg-theme-default.hg-milan-theme .hg-row > div:first-child {

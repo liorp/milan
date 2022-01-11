@@ -15,7 +15,7 @@ export const GameEnd = ({
 }) => {
     return (
         <div
-            className={`transition alert ${lost && 'alert-error'} ${
+            className={`mb-2 transition alert ${lost && 'alert-error'} ${
                 won && 'alert-success'
             }`}
         >
