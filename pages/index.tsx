@@ -31,7 +31,16 @@ export default function Home({ word }: { word: string }) {
         <div className="flex flex-col h-screen">
             <Head>
                 <title>מילן</title>
-                <meta name="ilan" content="a cool game" />
+                <meta property="og:title" content="milan" />
+                <meta name="description" content="a cool game of words!" />
+                <meta property="og:url" content="https://milan.liorp.dev/" />
+                <meta
+                    property="og:description"
+                    content="a cool game of words!"
+                />
+                <meta property="og:image" content="/favicon.png" />
+                <meta property="og:locale" content="he_IL" />
+
                 <link rel="icon" href="/favicon.ico" />
                 <link rel="preconnect" href="https://fonts.googleapis.com" />
                 <link
