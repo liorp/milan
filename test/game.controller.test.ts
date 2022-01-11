@@ -1,7 +1,9 @@
 import {
     emojiFromGuesses,
     getCorrectAndPresent,
-    Letter,
+    keyboardLettersFromGuesses,
+    LetterType,
+    sanitizeString,
     wordInGuesses,
 } from '../controllers/GameController'
 
@@ -9,37 +11,37 @@ describe('getCorrectAndPresent', () => {
     it('should generate correct for the same words', () => {
         const result = getCorrectAndPresent('word', ['w', 'o', 'r', 'd'])
         expect(result).toEqual([
-            Letter.Correct,
-            Letter.Correct,
-            Letter.Correct,
-            Letter.Correct,
+            LetterType.Correct,
+            LetterType.Correct,
+            LetterType.Correct,
+            LetterType.Correct,
         ])
     })
     it('should generate present for matching words', () => {
         const result = getCorrectAndPresent('word', ['d', 'r', 'o', 'w'])
         expect(result).toEqual([
-            Letter.Present,
-            Letter.Present,
-            Letter.Present,
-            Letter.Present,
+            LetterType.Present,
+            LetterType.Present,
+            LetterType.Present,
+            LetterType.Present,
         ])
     })
     it('should generate mixed type for words', () => {
         const result = getCorrectAndPresent('word', ['w', 'r', 'o', 'd'])
         expect(result).toEqual([
-            Letter.Correct,
-            Letter.Present,
-            Letter.Present,
-            Letter.Correct,
+            LetterType.Correct,
+            LetterType.Present,
+            LetterType.Present,
+            LetterType.Correct,
         ])
     })
     it('should generate miss for words', () => {
         const result = getCorrectAndPresent('word', ['l', 'i', 'f', 'f'])
         expect(result).toEqual([
-            Letter.Miss,
-            Letter.Miss,
-            Letter.Miss,
-            Letter.Miss,
+            LetterType.Miss,
+            LetterType.Miss,
+            LetterType.Miss,
+            LetterType.Miss,
         ])
     })
     it('should generate mixed types for words with repeating letters', () => {
@@ -52,12 +54,12 @@ describe('getCorrectAndPresent', () => {
             's',
         ])
         expect(result).toEqual([
-            Letter.Present,
-            Letter.Correct,
-            Letter.Miss,
-            Letter.Miss,
-            Letter.Miss,
-            Letter.Correct,
+            LetterType.Present,
+            LetterType.Correct,
+            LetterType.Miss,
+            LetterType.Miss,
+            LetterType.Miss,
+            LetterType.Correct,
         ])
     })
 })
@@ -92,5 +94,86 @@ describe('emojiFromGuesses', () => {
     it('should generate a missing emoji board', () => {
         const result = emojiFromGuesses('word', [['', '', '', '']])
         expect(result).toEqual(`⬛⬛⬛⬛`)
+    })
+})
+
+describe('sanitizeString', () => {
+    it('should not do anything to english string', () => {
+        const result = sanitizeString('word')
+        expect(result).toEqual('word')
+    })
+    it('should replace end characters', () => {
+        const result = sanitizeString('מים')
+        expect(result).toEqual('מימ')
+    })
+    it('should replace end characters anywhere', () => {
+        const result = sanitizeString('רץיתי')
+        expect(result).toEqual('רציתי')
+    })
+
+    it('should not replace regular characters anywhere', () => {
+        const result = sanitizeString('רציפי')
+        expect(result).toEqual('רציפי')
+    })
+})
+
+describe('keyboardLettersFromGuesses', () => {
+    // vscode flips array in editor if it's all hebrew letters :(
+    it('should correct every letter', () => {
+        const result = keyboardLettersFromGuesses('בור', [
+            ['ג', 'ו', 'ר'],
+            ['ב', 'ו', 'ר'],
+        ])
+        expect(result).toEqual({
+            א: LetterType.Unevaluated,
+            ב: LetterType.Correct,
+            ג: LetterType.Miss,
+            ד: LetterType.Unevaluated,
+            ה: LetterType.Unevaluated,
+            ו: LetterType.Correct,
+            ז: LetterType.Unevaluated,
+            ח: LetterType.Unevaluated,
+            ט: LetterType.Unevaluated,
+            י: LetterType.Unevaluated,
+            כ: LetterType.Unevaluated,
+            ל: LetterType.Unevaluated,
+            מ: LetterType.Unevaluated,
+            נ: LetterType.Unevaluated,
+            ס: LetterType.Unevaluated,
+            ע: LetterType.Unevaluated,
+            פ: LetterType.Unevaluated,
+            צ: LetterType.Unevaluated,
+            ק: LetterType.Unevaluated,
+            ר: LetterType.Correct,
+            ש: LetterType.Unevaluated,
+            ת: LetterType.Unevaluated,
+        })
+    })
+    it('should hit ב', () => {
+        const result = keyboardLettersFromGuesses('בור', [['ג', 'ב', 'ל']])
+        expect(result).toEqual({
+            א: LetterType.Unevaluated,
+            ב: LetterType.Present,
+            ג: LetterType.Miss,
+            ד: LetterType.Unevaluated,
+            ה: LetterType.Unevaluated,
+            ו: LetterType.Unevaluated,
+            ז: LetterType.Unevaluated,
+            ח: LetterType.Unevaluated,
+            ט: LetterType.Unevaluated,
+            י: LetterType.Unevaluated,
+            כ: LetterType.Unevaluated,
+            ל: LetterType.Miss,
+            מ: LetterType.Unevaluated,
+            נ: LetterType.Unevaluated,
+            ס: LetterType.Unevaluated,
+            ע: LetterType.Unevaluated,
+            פ: LetterType.Unevaluated,
+            צ: LetterType.Unevaluated,
+            ק: LetterType.Unevaluated,
+            ר: LetterType.Unevaluated,
+            ש: LetterType.Unevaluated,
+            ת: LetterType.Unevaluated,
+        })
     })
 })

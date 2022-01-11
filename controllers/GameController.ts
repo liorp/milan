@@ -2,6 +2,7 @@ export type Board = string[][]
 export const numberOfLetters = 5
 export const numberOfRows = 6
 export const word = 'לחמים'
+export const empty = '-'
 
 export const endOfWordToRegularLetters = {
     ם: 'מ',
@@ -19,58 +20,61 @@ export const regularToEndOfWordLetters = {
     כ: 'ך',
 }
 
-export enum Letter {
+// The enum ordering is used in order to always push a better result into the dict
+export enum LetterType {
+    Unevaluated,
+    Miss,
     Present,
     Correct,
-    Miss,
 }
 
-export const letterToBgColor = {
-    [Letter.Miss]: 'bg-grey-400',
-    [Letter.Present]: 'bg-orange-400',
-    [Letter.Correct]: 'bg-green-400',
+export const letterTypeToBgColor = {
+    [LetterType.Unevaluated]: '',
+    [LetterType.Miss]: 'bg-zinc-400',
+    [LetterType.Present]: 'bg-orange-400',
+    [LetterType.Correct]: 'bg-green-400',
 }
 
-export const letterToEmoji = {
-    [Letter.Present]: '🟨',
-    [Letter.Correct]: '🟩',
-    [Letter.Miss]: '⬛',
+export const letterTypeToEmoji = {
+    [LetterType.Miss]: '⬛',
+    [LetterType.Present]: '🟨',
+    [LetterType.Correct]: '🟩',
 }
 
 export const keyboardLettersFromGuesses = (word: string, guesses: Board) => {
     let letters = {
-        א: '',
-        ב: '',
-        ג: '',
-        ד: '',
-        ה: '',
-        ו: '',
-        ז: '',
-        ח: '',
-        ט: '',
-        י: '',
-        כ: '',
-        ל: '',
-        מ: '',
-        נ: '',
-        ס: '',
-        ע: '',
-        פ: '',
-        צ: '',
-        ק: '',
-        ר: '',
-        ש: '',
-        ת: '',
+        א: LetterType.Unevaluated,
+        ב: LetterType.Unevaluated,
+        ג: LetterType.Unevaluated,
+        ד: LetterType.Unevaluated,
+        ה: LetterType.Unevaluated,
+        ו: LetterType.Unevaluated,
+        ז: LetterType.Unevaluated,
+        ח: LetterType.Unevaluated,
+        ט: LetterType.Unevaluated,
+        י: LetterType.Unevaluated,
+        כ: LetterType.Unevaluated,
+        ל: LetterType.Unevaluated,
+        מ: LetterType.Unevaluated,
+        נ: LetterType.Unevaluated,
+        ס: LetterType.Unevaluated,
+        ע: LetterType.Unevaluated,
+        פ: LetterType.Unevaluated,
+        צ: LetterType.Unevaluated,
+        ק: LetterType.Unevaluated,
+        ר: LetterType.Unevaluated,
+        ש: LetterType.Unevaluated,
+        ת: LetterType.Unevaluated,
     }
-    let content = []
-    for (let i = 0; i < guesses.length; i++) {
-        content.push(
-            getCorrectAndPresent(word, guesses[i])
-                .map((l) => letterToEmoji[l])
-                .join('')
-        )
+    for (const i in guesses) {
+        let line = guesses[i]
+        let r = getCorrectAndPresent(word, line)
+        for (const t in r) {
+            // Using the enum ordering in order to always push a better result into the dict
+            if (r[t] > letters[line[t]]) letters[line[t]] = r[t]
+        }
     }
-    return content.join('\n')
+    return letters
 }
 
 export const emojiFromGuesses = (word: string, guesses: Board): string => {
@@ -78,7 +82,7 @@ export const emojiFromGuesses = (word: string, guesses: Board): string => {
     for (let i = 0; i < guesses.length; i++) {
         content.push(
             getCorrectAndPresent(word, guesses[i])
-                .map((l) => letterToEmoji[l])
+                .map((l) => letterTypeToEmoji[l])
                 .join('')
         )
     }
@@ -107,20 +111,23 @@ export const sanitizeString = (str: string): string => {
 export const getCorrectAndPresent = (
     word: string,
     guess: string[]
-): Letter[] => {
+): LetterType[] => {
     const cleanWord = sanitizeString(word)
-    const cleanGuess = guess.map(sanitizeString).join('')
+    const cleanGuess = guess
+        .map((e) => (e === '' && empty) || e)
+        .map(sanitizeString)
+        .join('')
 
     let correctAndPresent = {
-        cleanWord: Array(cleanGuess.length).fill(Letter.Miss),
-        cleanGuess: Array(cleanGuess.length).fill(Letter.Miss),
+        cleanWord: Array(cleanWord.length).fill(LetterType.Unevaluated),
+        cleanGuess: Array(cleanGuess.length).fill(LetterType.Unevaluated),
     }
 
     // For each letter of guess, check if it's correct
     for (let i = 0; i < cleanWord.length; i++) {
-        if (word[i] === guess[i])
+        if (cleanWord[i] === cleanGuess[i])
             correctAndPresent.cleanGuess[i] = correctAndPresent.cleanWord[i] =
-                Letter.Correct
+                LetterType.Correct
     }
 
     // Now the tricky part is to find the present
@@ -129,12 +136,19 @@ export const getCorrectAndPresent = (
         for (let j = 0; j < cleanWord.length; j++) {
             if (
                 cleanGuess[i] === cleanWord[j] &&
-                correctAndPresent.cleanWord[j] !== Letter.Correct &&
-                correctAndPresent.cleanWord[j] !== Letter.Present
+                correctAndPresent.cleanWord[j] !== LetterType.Correct &&
+                correctAndPresent.cleanWord[j] !== LetterType.Present
             )
                 correctAndPresent.cleanGuess[i] = correctAndPresent.cleanWord[
                     j
-                ] = Letter.Present
+                ] = LetterType.Present
+        }
+        if (
+            correctAndPresent.cleanGuess[i] === LetterType.Unevaluated &&
+            cleanGuess[i] !== empty
+        ) {
+            // Finally, set the character to miss
+            correctAndPresent.cleanGuess[i] = LetterType.Miss
         }
     }
 

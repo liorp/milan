@@ -1,21 +1,21 @@
 import React, { useRef, useState } from 'react'
-import { InferGetStaticPropsType } from 'next'
-
 import { useImmer } from 'use-immer'
 import Keyboard from 'react-simple-keyboard'
 import 'react-simple-keyboard/build/css/index.css'
 import {
     numberOfRows,
     numberOfLetters,
-    getCorrectAndPresent,
-    letterToBgColor,
     wordInGuesses,
     Board,
     emojiFromGuesses,
     endOfWordToRegularLetters,
     regularToEndOfWordLetters,
+    keyboardLettersFromGuesses,
+    LetterType,
+    letterTypeToBgColor,
 } from '../controllers/GameController'
-import ShareButton from './ShareButton'
+import { GameBoard } from './GameBoard'
+import { GameEnd } from './GameEnd'
 
 export const Game = ({ word = 'לחמים' }: { word: string }) => {
     const [board, setBoard] = useImmer<Board>(
@@ -28,6 +28,28 @@ export const Game = ({ word = 'לחמים' }: { word: string }) => {
     )
     const [active, setActive] = useState(true)
     const flatLetters = board.flat()
+
+    const keymap = keyboardLettersFromGuesses(
+        word,
+        board.slice(
+            0,
+            finishRows.lastIndexOf(true) > -1
+                ? finishRows.lastIndexOf(true) + 1
+                : 0
+        )
+    )
+    const keys = {
+        [LetterType.Unevaluated]: [],
+        [LetterType.Miss]: [],
+        [LetterType.Present]: [],
+        [LetterType.Correct]: [],
+    }
+    for (const c in keymap) {
+        keys[keymap[c]].push(c)
+        if (c in regularToEndOfWordLetters) {
+            keys[keymap[c]].push(regularToEndOfWordLetters[c])
+        }
+    }
 
     const currentPlace = flatLetters.findIndex((l) => l === '')
     const currentRow = Math.floor(currentPlace / numberOfLetters)
@@ -89,56 +111,9 @@ export const Game = ({ word = 'לחמים' }: { word: string }) => {
     return (
         <div className="w-full h-full flex flex-col items-center">
             {finishedGame && (
-                <div
-                    className={`transition alert ${lost && 'alert-error'} ${
-                        won && 'alert-success'
-                    }`}
-                >
-                    <div className="flex-1">
-                        <label className="mx-3">
-                            {won && 'איזה כיף! '}
-                            המילה הייתה {word}! {lost && 'איך לא ידעת כפרה?'}
-                        </label>
-                    </div>
-                    <div className="flex-none">
-                        <button className="btn btn-sm btn-ghost mr-2 font-bold">
-                            <ShareButton
-                                label="שיתוף"
-                                title="גם אני נפלתי למילן"
-                                text={`זה הלוח שלי: ${emojiFromGuesses(
-                                    word,
-                                    board
-                                )}`}
-                            />
-                        </button>
-                    </div>
-                </div>
+                <GameEnd won={won} lost={lost} word={word} board={board} />
             )}
-            <div className="grid grid-cols-5 gap-1 place-content-center flex-grow">
-                {board
-                    .map((r, i) => {
-                        const finishedRow = finishRows[i]
-                        const correctAndPresent = getCorrectAndPresent(word, r)
-                        return r.map((l, j) => {
-                            const type = correctAndPresent[j]
-                            return (
-                                <span
-                                    key={i * numberOfRows + j}
-                                    className={`flex items-center justify-center text-xl font-bold text-center border-r-2 border-2 h-16 w-16 transition-colors duration-500 delay-[${
-                                        j * 6000
-                                    }ms] ${
-                                        (finishedRow &&
-                                            letterToBgColor[type]) ||
-                                        'bg-gray-800'
-                                    }`}
-                                >
-                                    {l}
-                                </span>
-                            )
-                        })
-                    })
-                    .flat()}
-            </div>
+            <GameBoard board={board} finishRows={finishRows} word={word} />
             <br />
 
             <div className="lg:w-5/12 lg:h-1/5">
@@ -157,6 +132,22 @@ export const Game = ({ word = 'לחמים' }: { word: string }) => {
                         {
                             class: 'invisible',
                             buttons: ' ',
+                        },
+                        {
+                            class: letterTypeToBgColor[LetterType.Unevaluated],
+                            buttons: keys[LetterType.Unevaluated].join(' '),
+                        },
+                        {
+                            class: letterTypeToBgColor[LetterType.Miss],
+                            buttons: keys[LetterType.Miss].join(' '),
+                        },
+                        {
+                            class: letterTypeToBgColor[LetterType.Present],
+                            buttons: keys[LetterType.Present].join(' '),
+                        },
+                        {
+                            class: letterTypeToBgColor[LetterType.Correct],
+                            buttons: keys[LetterType.Correct].join(' '),
                         },
                     ]}
                     display={{ '{bksp}': '⌫', '{enter}': 'יאללה' }}
