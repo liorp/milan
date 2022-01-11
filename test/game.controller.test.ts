@@ -17,6 +17,16 @@ describe('getCorrectAndPresent', () => {
             LetterType.Correct,
         ])
     })
+    it('should generate correct for similar words', () => {
+        const result = getCorrectAndPresent('שונות', ['ש', 'ו', 'א', 'ל', 'ת'])
+        expect(result).toEqual([
+            LetterType.Correct,
+            LetterType.Correct,
+            LetterType.Miss,
+            LetterType.Miss,
+            LetterType.Correct,
+        ])
+    })
     it('should generate present for matching words', () => {
         const result = getCorrectAndPresent('word', ['d', 'r', 'o', 'w'])
         expect(result).toEqual([
@@ -93,7 +103,7 @@ describe('emojiFromGuesses', () => {
     })
     it('should generate a missing emoji board', () => {
         const result = emojiFromGuesses('word', [['', '', '', '']])
-        expect(result).toEqual(`⬛⬛⬛⬛`)
+        expect(result).toEqual(``)
     })
 })
 

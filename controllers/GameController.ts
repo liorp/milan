@@ -136,7 +136,9 @@ export const getCorrectAndPresent = (
         for (let j = 0; j < cleanWord.length; j++) {
             if (
                 cleanGuess[i] === cleanWord[j] &&
+                correctAndPresent.cleanGuess[i] !== LetterType.Correct &&
                 correctAndPresent.cleanWord[j] !== LetterType.Correct &&
+                correctAndPresent.cleanGuess[i] !== LetterType.Present &&
                 correctAndPresent.cleanWord[j] !== LetterType.Present
             )
                 correctAndPresent.cleanGuess[i] = correctAndPresent.cleanWord[
