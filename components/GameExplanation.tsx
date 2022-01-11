@@ -1,15 +1,23 @@
 import React from 'react'
 import { LetterType } from '../controllers/GameController'
-import { WordContext } from '../hooks/useWord'
 import { BoardCell } from './BoardCell'
-import { BoardRow } from './BoardRow'
+import { Milan } from './Milan'
 
 export const GameExplanation = () => {
     return (
         <div>
-            <a href="#rules" className="btn btn-primary">
-                חוקים
-            </a>
+            <div className="flex items-center justify-center">
+                <div className="w-1/3" />
+                <Milan />
+                <div className="w-1/3">
+                    <a
+                        href="#rules"
+                        className="btn btn-primary text-sm leading-none h-6"
+                    >
+                        חוקים
+                    </a>
+                </div>
+            </div>
             <div id="rules" className="modal">
                 <div className="modal-box">
                     <p className="text-right">

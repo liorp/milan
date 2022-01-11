@@ -45,11 +45,7 @@ export default function Home({ word }: { word: string }) {
                 />
             </Head>
 
-            <main className="text-center m-4">
-                <Milan />
-                <p className="m-auto mb-1 min-h-fit text-lg">
-                    זה כמו וורדל אבל בעברית
-                </p>
+            <main className="text-center m-2">
                 <GameExplanation />
             </main>
 
