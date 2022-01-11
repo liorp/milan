@@ -1,20 +1,22 @@
 import React, { useRef, useState } from 'react'
-import { produce } from 'immer'
+import { useImmer } from 'use-immer'
 import Keyboard from 'react-simple-keyboard'
 import 'react-simple-keyboard/build/css/index.css'
 
 const numberOfLetters = 5
-const numberOfRows = 5
-const words = ['לחמים']
+const numberOfRows = 6
 const word = 'לחמים'
 
 export const Game = () => {
-    const [letters, setLetters] = useState(
+    const [letters, setLetters] = useImmer<string[][]>(
         Array(numberOfRows)
             .fill(0)
             .map(() => Array(numberOfLetters).fill(''))
     )
-    const [finishRow, setFinishRow] = useState(false)
+    const [finishRows, setFinishRows] = useImmer<boolean[]>(
+        Array(numberOfRows).fill(false)
+    )
+    const [active, setActive] = useState(true)
     const flatLetters = letters.flat()
 
     const currentPlace = flatLetters.findIndex((l) => l === '')
@@ -24,26 +26,36 @@ export const Game = () => {
     const keyboard = useRef()
 
     const onKeyPress = (button) => {
+        if (!active) {
+            return
+        }
         // Game ended
         if (currentPlace === numberOfLetters * numberOfRows) return
 
         // Waiting for next row
-        if (currentColumn === numberOfLetters) {
-            if (button !== '{enter}') return
-            setFinishRow(true)
+        if (
+            currentColumn === 0 &&
+            currentRow > 0 &&
+            !finishRows[currentRow - 1]
+        ) {
+            if (button === '{enter}') {
+                setActive(false)
+                setFinishRows((r) => {
+                    r[currentRow - 1] = true
+                })
+                setActive(true)
+            }
+            return
         }
 
         if (button === '{bksp}') {
             setLetters((l) => {
-                return produce(l, (draft) => {
-                    draft[currentRow][currentColumn] = ''
-                })
+                l[currentRow][currentColumn - 1] = ''
             })
+            return
         }
         setLetters((l) => {
-            return produce(l, (draft) => {
-                draft[currentRow][currentColumn] = button
-            })
+            l[currentRow][currentColumn] = button
         })
     }
 
@@ -51,18 +63,30 @@ export const Game = () => {
         <>
             <div className="grid grid-cols-5 gap-5">
                 {letters
-                    .map((r, i) =>
-                        r.map((l, j) => (
-                            <span
-                                key={i * numberOfRows + j}
-                                className="border border-r-2 border-gray-400 h-10 w-10"
-                            >
-                                {l}
-                            </span>
-                        ))
-                    )
+                    .map((r, i) => {
+                        const finishedRow = finishRows[i]
+                        console.log(finishedRow)
+                        return r.map((l, j) => {
+                            const bul = word[j] == l
+                            const hit = l !== '' && word.indexOf(l) !== -1
+                            console.log('word' + word + 'le' + l + hit + bul)
+                            return (
+                                <span
+                                    key={i * numberOfRows + j}
+                                    className={`border border-r-2 border-gray-400 h-10 w-10 transition-colors duration-500 delay-[${
+                                        j * 6000
+                                    }ms] ${
+                                        finishedRow &&
+                                        ((bul && 'bg-green-400') ||
+                                            (hit && 'bg-orange-400'))
+                                    }`}
+                                >
+                                    {l}
+                                </span>
+                            )
+                        })
+                    })
                     .flat()}
-                {JSON.stringify(letters)}
             </div>
             <br />
 
