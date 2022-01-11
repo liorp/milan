@@ -1,4 +1,6 @@
 import React, { useRef, useState } from 'react'
+import { InferGetStaticPropsType } from 'next'
+
 import { useImmer } from 'use-immer'
 import Keyboard from 'react-simple-keyboard'
 import 'react-simple-keyboard/build/css/index.css'
@@ -6,17 +8,16 @@ import {
     numberOfRows,
     numberOfLetters,
     getCorrectAndPresent,
-    word,
     letterToBgColor,
     wordInGuesses,
     Board,
     emojiFromGuesses,
     endOfWordToRegularLetters,
     regularToEndOfWordLetters,
-} from './GameController'
-import ShareButton from './ShareButton'
+} from '../GameController'
+import ShareButton from '../ShareButton'
 
-export const Game = () => {
+export const Game = ({ word = 'לחמים' }: { word: string }) => {
     const [board, setBoard] = useImmer<Board>(
         Array(numberOfRows)
             .fill(0)
@@ -87,6 +88,7 @@ export const Game = () => {
 
     return (
         <div className="w-full h-full flex flex-col items-center">
+            {word}
             {finishedGame && (
                 <div
                     className={`transition alert ${lost && 'alert-error'} ${

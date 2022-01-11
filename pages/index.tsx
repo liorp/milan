@@ -1,8 +1,22 @@
 import Head from 'next/head'
-import Image from 'next/image'
-import { Game } from './Game'
+import { Game } from './components/Game'
+import { DateTime } from 'luxon'
+import words from '../resources/words.json'
 
-export default function Home() {
+export const getStaticProps = async () => {
+    const today = DateTime.now().ordinal
+
+    const word = words[today % 88]
+
+    return {
+        props: {
+            word,
+        },
+        revalidate: 10, // In seconds
+    }
+}
+
+export default function Home({ word }: { word: string }) {
     return (
         <div className="flex flex-col h-screen">
             <Head>
@@ -31,7 +45,7 @@ export default function Home() {
             </main>
 
             <div className="flex-grow">
-                <Game />
+                <Game word={word} />
             </div>
             <footer className="m-2" dir="ltr">
                 <a
