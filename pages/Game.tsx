@@ -77,7 +77,7 @@ export const Game = () => {
                             return (
                                 <span
                                     key={i * numberOfRows + j}
-                                    className={`border border-r-2 border-gray-400 h-10 w-10 transition-colors duration-500 delay-[${
+                                    className={`flex items-center justify-center text-xl font-bold text-center border-r-2 border-2 border-gray-400 h-10 w-10 transition-colors duration-500 delay-[${
                                         j * 6000
                                     }ms] ${
                                         finishedRow && letterToBgColor[type]
@@ -92,29 +92,31 @@ export const Game = () => {
             </div>
             <br />
 
-            <Keyboard
-                keyboardRef={(r) => (keyboard.current = r)}
-                theme="hg-theme-default hg-theme-ios"
-                layoutName={'default'}
-                layout={{
-                    default: [
-                        ' ק ר א ט ו ן ם פ ',
-                        ' ש ד ג כ ע י ח ל ך ף ',
-                        '{bksp} ז ס ב ה נ מ צ ת ץ {enter}',
-                    ],
-                }}
-                buttonTheme={[
-                    {
-                        class: 'invisible',
-                        buttons: ' ',
-                    },
-                ]}
-                display={{ '{bksp}': '⌫', '{enter}': 'יאללה' }}
-                disableButtonHold
-                onKeyPress={onKeyPress}
-                physicalKeyboardHighlight
-                physicalKeyboardHighlightPress
-            />
+            <div>
+                <Keyboard
+                    keyboardRef={(r) => (keyboard.current = r)}
+                    theme="hg-theme-default hg-theme-ios text-black"
+                    layoutName="default"
+                    layout={{
+                        default: [
+                            ' ק ר א ט ו ן ם פ ',
+                            ' ש ד ג כ ע י ח ל ך ף ',
+                            '{bksp} ז ס ב ה נ מ צ ת ץ  {enter}',
+                        ],
+                    }}
+                    buttonTheme={[
+                        {
+                            class: 'invisible',
+                            buttons: ' ',
+                        },
+                    ]}
+                    display={{ '{bksp}': '⌫', '{enter}': 'יאללה' }}
+                    disableButtonHold
+                    onKeyPress={onKeyPress}
+                    physicalKeyboardHighlight
+                    physicalKeyboardHighlightPress
+                />
+            </div>
         </div>
     )
 }
