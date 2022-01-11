@@ -25,7 +25,7 @@ export const generateEmojiFromGuesses = (
     let content = []
     for (let i = 0; i < guesses.length; i++) {
         content.push(
-            getCorrectAndPresent(word, guesses[i].join(''))
+            getCorrectAndPresent(word, guesses[i])
                 .map((l) => letterToEmoji[l])
                 .join('')
         )
@@ -40,7 +40,10 @@ export const wordInGuesses = (word: string, guesses: Board): boolean => {
     return false
 }
 
-export const getCorrectAndPresent = (word: string, guess: string): Letter[] => {
+export const getCorrectAndPresent = (
+    word: string,
+    guess: string[]
+): Letter[] => {
     let correctAndPresent = {
         guess: Array(guess.length).fill(Letter.Miss),
         word: Array(guess.length).fill(Letter.Miss),

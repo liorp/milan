@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 
 const ShareButton = ({
@@ -9,9 +10,18 @@ const ShareButton = ({
     text: string
     title: string
 }) => {
-    if (!navigator.share) {
+    const [nativeShare, setNativeShare] = useState(false)
+    useEffect(() => {
+        if (navigator.share) {
+            setNativeShare(true)
+        }
+    }, [])
+
+    if (!nativeShare) {
         return (
-            <CopyToClipboard text={title + ' ' + text}>{label}</CopyToClipboard>
+            <CopyToClipboard text={title + ' ' + text}>
+                <span>{label}</span>
+            </CopyToClipboard>
         )
     }
 

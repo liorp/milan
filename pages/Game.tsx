@@ -32,7 +32,7 @@ export const Game = () => {
     const lost =
         currentPlace === numberOfLetters * numberOfRows &&
         !wordInGuesses(word, board)
-    const won = wordInGuesses(word, board)
+    const won = wordInGuesses(word, board) && finishRows[currentRow - 1]
     const finishedGame = lost || won
 
     const keyboard = useRef()
@@ -71,9 +71,9 @@ export const Game = () => {
 
     return (
         <div className="w-full h-full flex flex-col items-center">
-            {
+            {finishedGame && (
                 <div
-                    className={`alert ${lost && 'alert-error'} ${
+                    className={`transition alert ${lost && 'alert-error'} ${
                         won && 'alert-success'
                     }`}
                 >
@@ -84,7 +84,7 @@ export const Game = () => {
                         </label>
                     </div>
                     <div className="flex-none">
-                        <button className="btn btn-sm btn-ghost mr-2">
+                        <button className="btn btn-sm btn-ghost mr-2 font-bold">
                             <ShareButton
                                 label="שיתוף"
                                 title="גם אני נפלתי למילן"
@@ -96,14 +96,14 @@ export const Game = () => {
                         </button>
                     </div>
                 </div>
-            }
+            )}
             <div className="grid grid-cols-5 gap-1 place-content-center flex-grow">
                 {board
                     .map((r, i) => {
                         const finishedRow = finishRows[i]
                         const correctAndPresent = getCorrectAndPresent(
                             word,
-                            r.join('')
+                            r
                         )
                         return r.map((l, j) => {
                             const type = correctAndPresent[j]

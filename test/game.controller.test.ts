@@ -1,4 +1,3 @@
-import React from 'react'
 import {
     generateEmojiFromGuesses,
     getCorrectAndPresent,
@@ -8,7 +7,7 @@ import {
 
 describe('getCorrectAndPresent', () => {
     it('should generate correct for the same words', () => {
-        const result = getCorrectAndPresent('word', 'word')
+        const result = getCorrectAndPresent('word', ['w', 'o', 'r', 'd'])
         expect(result).toEqual([
             Letter.Correct,
             Letter.Correct,
@@ -17,7 +16,7 @@ describe('getCorrectAndPresent', () => {
         ])
     })
     it('should generate present for matching words', () => {
-        const result = getCorrectAndPresent('word', 'drow')
+        const result = getCorrectAndPresent('word', ['d', 'r', 'o', 'w'])
         expect(result).toEqual([
             Letter.Present,
             Letter.Present,
@@ -26,7 +25,7 @@ describe('getCorrectAndPresent', () => {
         ])
     })
     it('should generate mixed type for words', () => {
-        const result = getCorrectAndPresent('word', 'wrod')
+        const result = getCorrectAndPresent('word', ['w', 'r', 'o', 'd'])
         expect(result).toEqual([
             Letter.Correct,
             Letter.Present,
@@ -35,7 +34,7 @@ describe('getCorrectAndPresent', () => {
         ])
     })
     it('should generate miss for words', () => {
-        const result = getCorrectAndPresent('word', 'liff')
+        const result = getCorrectAndPresent('word', ['l', 'i', 'f', 'f'])
         expect(result).toEqual([
             Letter.Miss,
             Letter.Miss,
@@ -44,7 +43,14 @@ describe('getCorrectAndPresent', () => {
         ])
     })
     it('should generate mixed types for words with repeating letters', () => {
-        const result = getCorrectAndPresent('wordos', 'oompas')
+        const result = getCorrectAndPresent('wordos', [
+            'o',
+            'o',
+            'm',
+            'p',
+            'a',
+            's',
+        ])
         expect(result).toEqual([
             Letter.Present,
             Letter.Correct,
@@ -82,5 +88,9 @@ describe('generateEmojiFromGuesses', () => {
             ['w', 'o', 'r', 'd'],
         ])
         expect(result).toEqual(`⬛🟩🟨🟨\n⬛🟩⬛🟩\n⬛🟨🟨🟩\n🟩🟩🟩🟩`)
+    })
+    it('should generate a missing emoji board', () => {
+        const result = generateEmojiFromGuesses('word', [['', '', '', '']])
+        expect(result).toEqual(`⬛⬛⬛⬛`)
     })
 })
