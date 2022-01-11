@@ -1,5 +1,5 @@
 import {
-    generateEmojiFromGuesses,
+    emojiFromGuesses,
     getCorrectAndPresent,
     Letter,
     wordInGuesses,
@@ -79,9 +79,9 @@ describe('wordInGuesses', () => {
     })
 })
 
-describe('generateEmojiFromGuesses', () => {
+describe('emojiFromGuesses', () => {
     it('should generate an emoji board', () => {
-        const result = generateEmojiFromGuesses('word', [
+        const result = emojiFromGuesses('word', [
             ['n', 'o', 'd', 'r'],
             ['t', 'o', 'l', 'd'],
             ['g', 'r', 'o', 'd'],
@@ -90,7 +90,7 @@ describe('generateEmojiFromGuesses', () => {
         expect(result).toEqual(`⬛🟩🟨🟨\n⬛🟩⬛🟩\n⬛🟨🟨🟩\n🟩🟩🟩🟩`)
     })
     it('should generate a missing emoji board', () => {
-        const result = generateEmojiFromGuesses('word', [['', '', '', '']])
+        const result = emojiFromGuesses('word', [['', '', '', '']])
         expect(result).toEqual(`⬛⬛⬛⬛`)
     })
 })

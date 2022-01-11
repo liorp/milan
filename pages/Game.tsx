@@ -10,7 +10,9 @@ import {
     letterToBgColor,
     wordInGuesses,
     Board,
-    generateEmojiFromGuesses,
+    emojiFromGuesses,
+    endOfWordToRegularLetters,
+    regularToEndOfWordLetters,
 } from './GameController'
 import ShareButton from './ShareButton'
 
@@ -31,12 +33,26 @@ export const Game = () => {
     const currentColumn = currentPlace % numberOfLetters
     const lost = !wordInGuesses(word, board) && finishRows[numberOfRows - 1]
     const won = wordInGuesses(word, board) && finishRows[currentRow - 1]
-    const finishedGame = (lost || won) && currentPlace === -1
+    const finishedGame = lost || won || currentPlace === -1
 
     const keyboard = useRef()
 
     const onKeyPress = (button) => {
+        let letter = button
         if (finishedGame || !active) return
+
+        if (
+            letter in endOfWordToRegularLetters &&
+            currentColumn !== numberOfLetters - 1
+        ) {
+            letter = endOfWordToRegularLetters[letter]
+        }
+        if (
+            letter in regularToEndOfWordLetters &&
+            currentColumn === numberOfLetters - 1
+        ) {
+            letter = regularToEndOfWordLetters[letter]
+        }
 
         // Waiting for next row
         if (
@@ -45,7 +61,7 @@ export const Game = () => {
                 !finishRows[currentRow - 1]) ||
             currentPlace === -1
         ) {
-            if (button === '{enter}') {
+            if (letter === '{enter}') {
                 setActive(false)
                 setFinishRows((r) => {
                     r[currentPlace === -1 ? numberOfRows - 1 : currentRow - 1] =
@@ -56,15 +72,15 @@ export const Game = () => {
             return
         }
 
-        if (button === '{bksp}') {
+        if (letter === '{bksp}') {
             setBoard((l) => {
                 l[currentRow][currentColumn - 1] = ''
             })
             return
         }
-        if (button !== '{enter}') {
+        if (letter !== '{enter}') {
             setBoard((l) => {
-                l[currentRow][currentColumn] = button
+                l[currentRow][currentColumn] = letter
             })
         }
     }
@@ -88,7 +104,7 @@ export const Game = () => {
                             <ShareButton
                                 label="שיתוף"
                                 title="גם אני נפלתי למילן"
-                                text={`זה הלוח שלי: ${generateEmojiFromGuesses(
+                                text={`זה הלוח שלי: ${emojiFromGuesses(
                                     word,
                                     board
                                 )}`}
@@ -145,8 +161,8 @@ export const Game = () => {
                     display={{ '{bksp}': '⌫', '{enter}': 'יאללה' }}
                     disableButtonHold
                     onKeyPress={onKeyPress}
-                    physicalKeyboardHighlight
-                    physicalKeyboardHighlightPress
+                    physicalKeyboardHighlight={!finishedGame}
+                    physicalKeyboardHighlightPress={!finishedGame}
                 />
             </div>
         </div>
