@@ -14,6 +14,7 @@ export const DarkModeToggle = () => {
             checked={theme === 'dark'}
             onChange={toggleDarkMode}
             size={40}
+            className="mr-2 ml-2"
         />
     )
 }

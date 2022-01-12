@@ -70,7 +70,7 @@ export default function Home({ word }: { word: string }) {
             <GitHubForkRibbon
                 href="//github.com/liorp/milan"
                 target="_blank"
-                position="left-bottom"
+                position="left"
             >
                 Fork me on GitHub
             </GitHubForkRibbon>

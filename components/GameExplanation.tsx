@@ -15,27 +15,26 @@ export const GameExplanation = () => {
         <>
             {isMounted ? (
                 <div className="text-center min-h-[3rem]">
-                    <div className="flex items-center justify-between">
-                        <div className="w-min flex items-center mr-2">
-                            <DarkModeToggle />
-                        </div>
-                        <div className="w-min flex items-center">
+                    <div className="flex w-100">
+                        <div className="flex w-[53%] items-center justify-between mr-2">
+                            <div className="flex items-center">
+                                <DarkModeToggle />
+                                <a
+                                    href="#rules"
+                                    className="btn btn-outline text-sm leading-none"
+                                >
+                                    חוקים
+                                </a>
+                            </div>
                             <Milan />
-                        </div>
-                        <div className="w-min flex items-center ml-2">
-                            <a
-                                href="#rules"
-                                className="btn btn-outline text-sm leading-none"
-                            >
-                                חוקים
-                            </a>
                         </div>
                     </div>
                     <div id="rules" className="modal">
                         <div className="modal-box">
-                            <div className="text-right">
-                                טוב אז למי שלא מכיר צריך לנחש את המילן ב-6
-                                ניסיונות.
+                            <div className="text-right z-[10000]">
+                                טוב אז למי שלא מכיר:
+                                <br />
+                                צריך לנחש את המילן ב-6 ניסיונות.
                                 <br />
                                 כל ניחוש זה 5 אותיות.
                                 <br />
@@ -48,7 +47,7 @@ export const GameExplanation = () => {
                                 </h2>
                                 <div className="flex flex-col justify-center items-start">
                                     <div
-                                        className={`grid grid-cols-5 gap-1 w-5/8 lg:w-1/2 mt-2`}
+                                        className={`grid grid-cols-5 gap-1 w-5/8 lg:w-1/2 mt-4`}
                                     >
                                         {['ח', 'ל', 'ו', 'מ', 'י'].map(
                                             (l, j) => {
@@ -71,7 +70,7 @@ export const GameExplanation = () => {
                                     ל נמצאת במילה במקום הנכון
                                     <br />
                                     <div
-                                        className={`grid grid-cols-5 gap-1 w-5/8 lg:w-1/2 mt-2`}
+                                        className={`grid grid-cols-5 gap-1 w-5/8 lg:w-1/2 mt-4`}
                                     >
                                         {['ה', 'צ', 'ל', 'ח', 'ה'].map(
                                             (l, j) => {
@@ -94,7 +93,7 @@ export const GameExplanation = () => {
                                     ח נמצאת במילה אבל לא במקום הנכון
                                     <br />
                                     <div
-                                        className={`grid grid-cols-5 gap-1 w-5/8 lg:w-1/2 mt-2`}
+                                        className={`grid grid-cols-5 gap-1 w-5/8 lg:w-1/2 mt-4`}
                                     >
                                         {['מ', 'ס', 'י', 'ב', 'ה'].map(
                                             (l, j) => {
