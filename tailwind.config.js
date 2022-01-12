@@ -1,5 +1,6 @@
 module.exports = {
     important: true,
+    mode: 'jit',
     content: [
         './pages/**/*.{js,ts,jsx,tsx}',
         './controllers/**/*.{js,ts,jsx,tsx}',
