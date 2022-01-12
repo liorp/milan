@@ -11,7 +11,7 @@ const rainbow =
 export const getStaticProps = async () => {
     const today = DateTime.now().ordinal
 
-    const word = words[today % 88]
+    const word = words[today % words.length]
 
     return {
         props: {
@@ -27,9 +27,14 @@ export default function Home({ word }: { word: string }) {
         rainbow
     )
     return (
-        <div className="flex flex-col h-screen">
+        <div className="flex flex-col h-full">
             <Head>
                 <title>מילן</title>
+                <meta
+                    name="viewport"
+                    content="width=device-width, initial-scale=1.0"
+                />
+
                 <meta property="og:title" content="milan" />
                 <meta name="description" content="a cool game of words!" />
                 <meta property="og:url" content="https://milan.liorp.dev/" />
@@ -53,24 +58,14 @@ export default function Home({ word }: { word: string }) {
                 />
             </Head>
 
-            <main className="text-center m-2">
-                <GameExplanation />
-            </main>
+            <GameExplanation />
+            <span className="divider mt-0" />
 
             <div className="flex-grow">
                 <WordContext.Provider value={word}>
                     <Game />
                 </WordContext.Provider>
             </div>
-            <footer className="m-2" dir="ltr">
-                <a
-                    href="https://liorp.github.io"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    נוצר על ידי ליאור פולק
-                </a>
-            </footer>
         </div>
     )
 }

@@ -28,7 +28,7 @@ export const Game = () => {
         Array(numberOfRows).fill(false)
     )
     const [active, setActive] = useState(true)
-    const flatLetters = board.flat()
+    const flatBoard = board.flat()
 
     const keymap = keyboardLettersFromGuesses(
         word,
@@ -52,10 +52,10 @@ export const Game = () => {
         }
     }
 
-    const currentPlace = flatLetters.findIndex((l) => l === '')
+    const currentPlace = flatBoard.findIndex((l) => l === '')
     const currentRow = Math.floor(currentPlace / numberOfLetters)
     const currentColumn = currentPlace % numberOfLetters
-    const lost = !wordInGuesses(word, board) && finishRows[numberOfRows - 1]
+    const lost = !wordInGuesses(word, board) && finishRows[numberOfRows - 1] // Got to the end without guessing
     const won = wordInGuesses(word, board) && finishRows[currentRow - 1]
     const finishedGame = lost || won || currentPlace === -1
 
@@ -110,14 +110,12 @@ export const Game = () => {
     }
 
     return (
-        <div className="w-full h-full flex flex-col items-center">
-            {finishedGame && (
-                <GameEnd won={won} lost={lost} board={board} />
-            )}
+        <div className="w-full h-full flex flex-col items-center justify-between">
+            {finishedGame && <GameEnd won={won} lost={lost} board={board} />}
             <GameBoard board={board} finishRows={finishRows} />
             <br />
 
-            <div className="min-w-[22rem] min-h-[8rem]">
+            <div className="min-w-[22rem] min-h-[8rem] mb-2">
                 <Keyboard
                     keyboardRef={(r) => (keyboard.current = r)}
                     theme="hg-theme-default hg-theme-ios hg-milan-theme"

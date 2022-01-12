@@ -1,7 +1,15 @@
-import React from 'react'
-import { Board, emojiFromGuesses } from '../controllers/GameController'
+import React, { useCallback, useState } from 'react'
+import {
+    Board,
+    emojiFromGuesses,
+    numberOfLetters,
+    numberOfRows,
+} from '../controllers/GameController'
 import { useWord } from '../hooks/useWord'
 import ShareButton from './ShareButton'
+import { useMountedState } from 'react-use'
+
+const delay = 1100
 
 export const GameEnd = ({
     won,
@@ -13,6 +21,22 @@ export const GameEnd = ({
     board: Board
 }) => {
     const word = useWord()
+    const [copied, setCopied] = useState(false)
+    const isMounted = useMountedState()
+
+    const onCopy = useCallback((text: string, success: boolean) => {
+        success && setCopied(true)
+        setTimeout(() => {
+            if (isMounted) {
+                setCopied(false)
+            }
+        }, delay)
+    }, [])
+
+    const flatBoard = board.flat()
+    const currentPlace = flatBoard.findIndex((l) => l === '')
+    const currentRow = Math.floor(currentPlace / numberOfLetters)
+    const numberOfGuesses = lost ? 6 : currentRow
 
     return (
         <div
@@ -31,9 +55,35 @@ export const GameEnd = ({
                     <ShareButton
                         label="שיתוף"
                         title="גם אני נפלתי למילן"
-                        text={`זה הלוח שלי: ${emojiFromGuesses(word, board)}`}
+                        text={`זה הלוח שלי
+                        ${numberOfGuesses}/${numberOfRows}:\n
+                        ${emojiFromGuesses(word, board)}`}
+                        onClick={onCopy}
                     />
                 </button>
+            </div>
+            <div
+                className={`alert absolute top-0 left-[41vw] w-[18vw] transition ${
+                    !copied && 'opacity-0'
+                }`}
+            >
+                <div className="flex flex-1 justify-between">
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="#2196f3"
+                        className="w-6 h-6"
+                    >
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                        ></path>
+                    </svg>
+                    <label>לוח הועתק!</label>
+                </div>
             </div>
         </div>
     )

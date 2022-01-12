@@ -5,7 +5,7 @@ import { Milan } from './Milan'
 
 export const GameExplanation = () => {
     return (
-        <div>
+        <div className="text-center">
             <div className="flex items-center justify-center">
                 <div className="w-1/3" />
                 <Milan />
@@ -96,12 +96,19 @@ export const GameExplanation = () => {
                             </div>
                             י לא נמצאת במילה
                         </div>
-                        <div className="divider mt-0 mb-0" />
+                        <div className="divider mt-2 mb-0" />
                         יש מילן חדש כל יום!
                     </p>
-                    <div className="modal-action">
+                    <div className="modal-action flex flex-row-reverse justify-between items-center">
                         <a href="#" className="btn btn-primary">
                             קליל
+                        </a>
+                        <a
+                            href="https://liorp.dev"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            נוצר על ידי ליאור פולק
                         </a>
                     </div>
                 </div>
