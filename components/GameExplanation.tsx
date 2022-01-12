@@ -12,7 +12,7 @@ export const GameExplanation = () => {
                 <div className="w-1/3">
                     <a
                         href="#rules"
-                        className="btn btn-primary text-sm leading-none h-6"
+                        className="btn btn-outline text-sm leading-none h-6"
                     >
                         חוקים
                     </a>
@@ -107,6 +107,7 @@ export const GameExplanation = () => {
                             href="https://liorp.dev"
                             target="_blank"
                             rel="noopener noreferrer"
+                            className="btn btn-outline"
                         >
                             נוצר על ידי ליאור פולק
                         </a>
