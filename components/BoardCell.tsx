@@ -14,7 +14,7 @@ export const BoardCell = ({
 }) => {
     return (
         <span
-            className={`flex items-center justify-center text-xl font-bold text-center border-r-2 border-2 h-10 w-10 transition-colors duration-500 delay-[${
+            className={`flex items-center justify-center text-xl font-bold text-center border-gray-700 dark:border-gray-300 border-r-2 border-2 h-10 w-10 transition-colors duration-500 delay-[${
                 column * 1000
             }ms] ${finishedRow && letterTypeToBgColor[type]}`}
         >

@@ -1,5 +1,6 @@
 module.exports = {
     important: true,
+    darkMode: 'class',
     content: [
         './pages/**/*.{js,ts,jsx,tsx}',
         './controllers/**/*.{js,ts,jsx,tsx}',

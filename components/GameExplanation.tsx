@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { LetterType } from '../controllers/GameController'
 import { BoardCell } from './BoardCell'
+import { DarkModeToggle } from './DarkModeToggle'
 import { Milan } from './Milan'
 
 export const GameExplanation = () => {
@@ -15,16 +16,18 @@ export const GameExplanation = () => {
             {isMounted ? (
                 <div className="text-center min-h-[3rem]">
                     <div className="flex items-center justify-center">
-                        <div className="w-1/3" />
+                        <div className="w-1/4" />
+                        <DarkModeToggle />
+                        <div className="w-1/4" />
                         <Milan />
-                        <div className="w-1/3">
-                            <a
-                                href="#rules"
-                                className="btn btn-outline text-sm leading-none h-6"
-                            >
-                                חוקים
-                            </a>
-                        </div>
+                        <div className="w-1/4" />
+                        <a
+                            href="#rules"
+                            className="btn btn-outline text-sm leading-none h-6"
+                        >
+                            חוקים
+                        </a>
+                        <div className="w-1/4" />
                     </div>
                     <div id="rules" className="modal">
                         <div className="modal-box">
