@@ -16,14 +16,13 @@ export const GameExplanation = () => {
             {isMounted ? (
                 <div className="text-center min-h-[3rem]">
                     <div className="flex items-center justify-between">
-                        <div className="w-[1vw]" />
-                        <div className="w-min flex items-center">
+                        <div className="w-min flex items-center mr-2">
                             <DarkModeToggle />
                         </div>
                         <div className="w-min flex items-center">
                             <Milan />
                         </div>
-                        <div className="w-min flex items-center">
+                        <div className="w-min flex items-center ml-2">
                             <a
                                 href="#rules"
                                 className="btn btn-outline text-sm leading-none"
@@ -31,7 +30,6 @@ export const GameExplanation = () => {
                                 חוקים
                             </a>
                         </div>
-                        <div className="w-[1vw]" />
                     </div>
                     <div id="rules" className="modal">
                         <div className="modal-box">
