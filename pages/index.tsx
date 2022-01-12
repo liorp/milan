@@ -2,7 +2,6 @@ import Head from 'next/head'
 import { Game } from '../components/Game'
 import { DateTime } from 'luxon'
 import words from '../resources/words.json'
-import { Milan } from '../components/Milan'
 import { GameExplanation } from '../components/GameExplanation'
 import { WordContext } from '../hooks/useWord'
 
