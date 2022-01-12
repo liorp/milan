@@ -110,12 +110,12 @@ export const Game = () => {
     }
 
     return (
-        <div className="w-full h-full flex flex-col items-center justify-between">
+        <div className="w-full h-full flex-grow flex flex-col min-h-[14rem] items-center justify-between">
             {finishedGame && <GameEnd won={won} lost={lost} board={board} />}
             <GameBoard board={board} finishRows={finishRows} />
             <br />
 
-            <div className="min-w-[22rem] min-h-[8rem] mb-2">
+            <div className="min-w-[22rem] min-h-[10rem] mb-2">
                 <Keyboard
                     keyboardRef={(r) => (keyboard.current = r)}
                     theme="hg-theme-default hg-theme-ios hg-milan-theme"

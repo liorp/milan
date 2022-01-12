@@ -61,11 +61,9 @@ export default function Home({ word }: { word: string }) {
             <GameExplanation />
             <span className="divider mt-0" />
 
-            <div className="flex-grow">
-                <WordContext.Provider value={word}>
-                    <Game />
-                </WordContext.Provider>
-            </div>
+            <WordContext.Provider value={word}>
+                <Game />
+            </WordContext.Provider>
         </div>
     )
 }

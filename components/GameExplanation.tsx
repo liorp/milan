@@ -13,7 +13,7 @@ export const GameExplanation = () => {
     return (
         <>
             {isMounted ? (
-                <div className="text-center">
+                <div className="text-center min-h-[3rem]">
                     <div className="flex items-center justify-center">
                         <div className="w-1/3" />
                         <Milan />
@@ -28,7 +28,7 @@ export const GameExplanation = () => {
                     </div>
                     <div id="rules" className="modal">
                         <div className="modal-box">
-                            <p className="text-right">
+                            <div className="text-right">
                                 טוב אז למי שלא מכיר צריך לנחש את המילן ב-6
                                 ניסיונות.
                                 <br />
@@ -113,7 +113,7 @@ export const GameExplanation = () => {
                                 </div>
                                 <div className="divider mt-2 mb-0" />
                                 יש מילן חדש כל יום!
-                            </p>
+                            </div>
                             <div className="mt-2 flex flex-row-reverse justify-between items-center">
                                 <a href="#" className="btn btn-primary">
                                     קליל
@@ -131,7 +131,7 @@ export const GameExplanation = () => {
                     </div>
                 </div>
             ) : (
-                <div />
+                <div className="text-center min-h-[3rem]" />
             )}
         </>
     )
