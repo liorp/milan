@@ -28,7 +28,7 @@ body {
 }
 
 .hg-theme-default.hg-milan-theme {
-    @apply text-black h-full;
+    @apply text-black h-full transition-colors delay-75;
 }
 
 .hg-theme-default.hg-milan-theme .hg-rows {
@@ -37,6 +37,10 @@ body {
 
 .hg-theme-default.hg-milan-theme .hg-row {
     @apply h-full m-1;
+}
+
+.hg-button {
+    @apply transition-colors delay-100;
 }
 
 .hg-milan-theme.hg-milan-theme .hg-button {

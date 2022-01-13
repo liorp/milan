@@ -57,7 +57,7 @@ export const GameEnd = ({
                         title="גם אני נפלתי למילן"
                         text={`זה הלוח שלי
                         ${numberOfGuesses}/${numberOfRows}:\n
-                        ${emojiFromGuesses(word, board)}`}
+                        ${emojiFromGuesses(word, board)}\n`}
                         onClick={onCopy}
                     />
                 </button>

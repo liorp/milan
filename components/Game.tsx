@@ -55,9 +55,13 @@ export const Game = () => {
     const currentPlace = flatBoard.findIndex((l) => l === '')
     const currentRow = Math.floor(currentPlace / numberOfLetters)
     const currentColumn = currentPlace % numberOfLetters
-    const lost = !wordInGuesses(word, board) && finishRows[numberOfRows - 1] // Got to the end without guessing
-    const won = wordInGuesses(word, board) && finishRows[currentRow - 1]
-    const finishedGame = lost || won || currentPlace === -1
+
+    const finishedBoard = finishRows.every((e) => e === true)
+    const lost = !wordInGuesses(word, board) && finishedBoard // Got to the end without guessing
+    const won =
+        wordInGuesses(word, board) &&
+        (finishRows[currentRow - 1] || finishedBoard)
+    const finishedGame = lost || won
 
     const keyboard = useRef()
 
@@ -78,6 +82,25 @@ export const Game = () => {
             letter = regularToEndOfWordLetters[letter]
         }
 
+        if (letter === '{bksp}') {
+            if (currentColumn === 0 && !finishRows[currentRow - 1]) {
+                // Got to the next line without finishing on the previous
+                setBoard((l) => {
+                    l[currentRow - 1][numberOfLetters - 1] = ''
+                })
+            } else if (currentPlace === -1) {
+                // Got to the end without finishing on the previous
+                setBoard((l) => {
+                    l[numberOfRows - 1][numberOfLetters - 1] = ''
+                })
+            } else {
+                setBoard((l) => {
+                    l[currentRow][currentColumn - 1] = ''
+                })
+            }
+            return
+        }
+
         // Waiting for next row
         if (
             (currentColumn === 0 &&
@@ -96,12 +119,6 @@ export const Game = () => {
             return
         }
 
-        if (letter === '{bksp}') {
-            setBoard((l) => {
-                l[currentRow][currentColumn - 1] = ''
-            })
-            return
-        }
         if (letter !== '{enter}') {
             setBoard((l) => {
                 l[currentRow][currentColumn] = letter
