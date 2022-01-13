@@ -15,10 +15,12 @@ export const GameEnd = ({
     won,
     lost,
     board,
+    numberOfGuesses,
 }: {
     won: boolean
     lost: boolean
     board: Board
+    numberOfGuesses: number
 }) => {
     const word = useWord()
     const [copied, setCopied] = useState(false)
@@ -32,11 +34,6 @@ export const GameEnd = ({
             }
         }, delay)
     }, [])
-
-    const flatBoard = board.flat()
-    const currentPlace = flatBoard.findIndex((l) => l === '')
-    const currentRow = Math.floor(currentPlace / numberOfLetters)
-    const numberOfGuesses = lost ? 6 : currentRow
 
     return (
         <div

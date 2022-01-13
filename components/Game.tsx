@@ -62,6 +62,7 @@ export const Game = () => {
         wordInGuesses(word, board) &&
         (finishRows[currentRow - 1] || finishedBoard)
     const finishedGame = lost || won
+    const numberOfGuesses = finishRows.lastIndexOf(true) + 1
 
     const keyboard = useRef()
 
@@ -128,7 +129,14 @@ export const Game = () => {
 
     return (
         <div className="w-full h-full flex-grow flex flex-col min-h-[14rem] items-center justify-between">
-            {finishedGame && <GameEnd won={won} lost={lost} board={board} />}
+            {finishedGame && (
+                <GameEnd
+                    won={won}
+                    lost={lost}
+                    board={board}
+                    numberOfGuesses={numberOfGuesses}
+                />
+            )}
             <GameBoard board={board} finishRows={finishRows} />
             <br />
 
