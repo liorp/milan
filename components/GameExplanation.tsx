@@ -3,6 +3,7 @@ import { LetterType } from '../controllers/GameController'
 import { BoardCell } from './BoardCell'
 import { DarkModeToggle } from './DarkModeToggle'
 import { Milan } from './Milan'
+import GitHubForkRibbon from 'react-github-fork-ribbon'
 
 export const GameExplanation = () => {
     const [isMounted, setIsMounted] = useState(false)
@@ -142,6 +143,13 @@ export const GameExplanation = () => {
                                 </div>
                             </div>
                         </div>
+                        <GitHubForkRibbon
+                            href="//github.com/liorp/milan"
+                            target="_blank"
+                            position="left"
+                        >
+                            Fork me on GitHub
+                        </GitHubForkRibbon>
                     </div>
                 </div>
             ) : (
