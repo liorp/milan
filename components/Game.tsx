@@ -50,6 +50,9 @@ export const Game = () => {
         if (c in regularToEndOfWordLetters) {
             keys[keymap[c]].push(regularToEndOfWordLetters[c])
         }
+        if (c in endOfWordToRegularLetters) {
+            keys[keymap[c]].push(endOfWordToRegularLetters[c])
+        }
     }
 
     const currentPlace = flatBoard.findIndex((l) => l === '')

@@ -65,6 +65,11 @@ export const keyboardLettersFromGuesses = (word: string, guesses: Board) => {
         ר: LetterType.Unevaluated,
         ש: LetterType.Unevaluated,
         ת: LetterType.Unevaluated,
+        ם: LetterType.Unevaluated,
+        ן: LetterType.Unevaluated,
+        ץ: LetterType.Unevaluated,
+        ף: LetterType.Unevaluated,
+        ך: LetterType.Unevaluated,
     }
     for (const i in guesses) {
         let line = guesses[i]
