@@ -14,25 +14,23 @@ export const GameExplanation = () => {
     return (
         <>
             {isMounted ? (
-                <div className="text-center min-h-[3rem]">
-                    <div className="flex w-100">
-                        <div className="flex w-[53%] items-center justify-between mr-2">
-                            <div className="flex items-center">
-                                <DarkModeToggle />
-                                <a
-                                    href="#rules"
-                                    className="btn btn-outline text-sm leading-none"
-                                >
-                                    חוקים
-                                </a>
-                            </div>
-                            <Milan />
-                        </div>
+                <div className="flex mt-2 items-center justify-between align-center mr-2">
+                    <div className="flex items-center z-10">
+                        <DarkModeToggle />
+                        <a
+                            href="#rules"
+                            className="btn btn-outline text-sm leading-none"
+                        >
+                            חוקים
+                        </a>
+                    </div>
+                    <div className="absolute left-0 top-0 text-center w-full flex justify-center">
+                        <Milan />
                     </div>
                     <div id="rules" className="modal">
                         <div className="modal-box">
                             <div className="text-right z-[10000]">
-                                טוב אז למי שלא מכיר:
+                                טוב אז למי שלא בעניינים:
                                 <br />
                                 צריך לנחש את המילן ב-6 ניסיונות.
                                 <br />
@@ -122,14 +120,26 @@ export const GameExplanation = () => {
                                 <a href="#" className="btn btn-primary">
                                     קליל
                                 </a>
-                                <a
-                                    href="https://liorp.dev"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="btn btn-outline"
+                                <div
+                                    className="flex flex-col tooltip tooltip-left"
+                                    data-tip={
+                                        'גרסה: ' +
+                                        process.env.NEXT_PUBLIC_VERSION +
+                                        ' קומיט:' +
+                                        process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA?.slice(
+                                            -7
+                                        )
+                                    }
                                 >
-                                    נוצר על ידי ליאור פולק
-                                </a>
+                                    <a
+                                        href="https://liorp.dev"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="btn btn-outline"
+                                    >
+                                        נוצר על ידי ליאור פולק
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>

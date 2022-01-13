@@ -1,5 +1,6 @@
 {
     "name": "milan",
+    "version": "1.0.0",
     "private": true,
     "scripts": {
         "dev": "next dev -H 10.100.102.9",
@@ -12,6 +13,7 @@
         "immer": "^9.0.10",
         "luxon": "^2.3.0",
         "next": "12.0.7",
+        "next-build-id": "^3.0.0",
         "react": "17.0.2",
         "react-copy-to-clipboard": "^5.0.4",
         "react-dom": "17.0.2",
