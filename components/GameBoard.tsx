@@ -1,10 +1,5 @@
 import React from 'react'
-import {
-    Board,
-    getCorrectAndPresent,
-    letterTypeToBgColor,
-    numberOfRows,
-} from '../controllers/GameController'
+import { Board } from '../controllers/GameController'
 import { useWord } from '../hooks/useWord'
 import { BoardCell } from './BoardCell'
 import { BoardRow } from './BoardRow'

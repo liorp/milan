@@ -17,6 +17,20 @@ import { GameBoard } from './GameBoard'
 import { GameEnd } from './GameEnd'
 import { useWord } from '../hooks/useWord'
 
+const generateButtonTheme = (keys: Record<LetterType, string[]>) => {
+    let buttons = []
+    for (const letterType of Object.values(LetterType)) {
+        if (keys[letterType]?.length) {
+            const button = {
+                class: letterTypeToBgColor[letterType],
+                buttons: keys[letterType].join(' '),
+            }
+            buttons.push(button)
+        }
+    }
+    return buttons
+}
+
 export const Game = () => {
     const word = useWord()
     const [board, setBoard] = useImmer<Board>(
@@ -160,22 +174,7 @@ export const Game = () => {
                             class: 'invisible',
                             buttons: ' ',
                         },
-                        {
-                            class: letterTypeToBgColor[LetterType.Unevaluated],
-                            buttons: keys[LetterType.Unevaluated].join(' '),
-                        },
-                        {
-                            class: letterTypeToBgColor[LetterType.Miss],
-                            buttons: keys[LetterType.Miss].join(' '),
-                        },
-                        {
-                            class: letterTypeToBgColor[LetterType.Present],
-                            buttons: keys[LetterType.Present].join(' '),
-                        },
-                        {
-                            class: letterTypeToBgColor[LetterType.Correct],
-                            buttons: keys[LetterType.Correct].join(' '),
-                        },
+                        ...generateButtonTheme(keys),
                     ]}
                     display={{ '{bksp}': '⌫', '{enter}': 'יאללה' }}
                     disableButtonHold

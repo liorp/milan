@@ -29,7 +29,7 @@ export enum LetterType {
 }
 
 export const letterTypeToBgColor = {
-    [LetterType.Unevaluated]: '',
+    [LetterType.Unevaluated]: 'hg-unevaluated',
     [LetterType.Miss]: 'bg-zinc-400',
     [LetterType.Present]: 'bg-orange-400',
     [LetterType.Correct]: 'bg-green-400',
