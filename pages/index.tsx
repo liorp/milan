@@ -24,7 +24,8 @@ export const getStaticProps: GetStaticProps = async () => {
 
 export default function Home({ word }: { word: string }) {
     console.log(
-        '%c' + ` If you liked this game, pay a visit to my blog :)\n.`,
+        '%c' +
+            ` If you liked this game, pay a visit to my blog :)\n Have you found the secret mode yet? 🧐`,
         rainbow
     )
     return (
