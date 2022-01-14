@@ -11,3 +11,5 @@ tnx https://github.com/eyaler/hebrew_wordlists http://icode.co.il/%D7%A8%D7%A9%D
 tnx to twitter for the emojis!
 
 tnx https://stackoverflow.com/a/65081431/938227 for the gtag!
+
+tnx to https://wordleheb.web.app/ for inspiration in Hebrew!
