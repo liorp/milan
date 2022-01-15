@@ -16,7 +16,7 @@ export const GameExplanation = () => {
         <>
             {isMounted ? (
                 <div className="flex mt-2 items-center justify-between align-center mr-2">
-                    <div className="flex items-center z-10">
+                    <div className="flex items-center z-10 justify-between w-full mr-2 ml-2">
                         <DarkModeToggle />
                         <a
                             href="#rules"
