@@ -39,10 +39,6 @@ const ShareButton = ({
             onClick(text, false)
         }
     }
-    return (
-        <button className="btn btn-outline m-2" onClick={handleSharing}>
-            {label}
-        </button>
-    )
+    return <span onClick={handleSharing}>{label}</span>
 }
 export default ShareButton
