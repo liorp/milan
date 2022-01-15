@@ -41,14 +41,12 @@ export const GameEnd = ({
                 won && 'alert-success'
             }`}
         >
-            <div className="flex-1">
-                <label className="mx-3">
+            <div className="min-w-full flex items-center">
+                <div className="flex-1">
                     {won && 'איזה כיף! '}
                     המילה הייתה {word}! {lost && 'איך לא ידעת כפרה?'}
-                </label>
-            </div>
-            <div className="flex-none">
-                <button className="btn btn-sm btn-ghost mr-2 font-bold">
+                </div>
+                <div className="flex-none mr-2">
                     <ShareButton
                         label="שיתוף"
                         title="גם אני נפלתי למילן"
@@ -57,7 +55,7 @@ export const GameEnd = ({
                         ${emojiFromGuesses(word, board)}\n`}
                         onClick={onCopy}
                     />
-                </button>
+                </div>
             </div>
             <div
                 className={`alert absolute top-0 left-[41vw] w-[18vw] transition ${

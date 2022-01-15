@@ -22,7 +22,7 @@ const ShareButton = ({
     if (!nativeShare) {
         return (
             <CopyToClipboard text={title + ' ' + text} onCopy={onClick}>
-                <span>{label}</span>
+                <span className="btn btn-sm btn-ghost font-bold">{label}</span>
             </CopyToClipboard>
         )
     }
@@ -39,6 +39,13 @@ const ShareButton = ({
             onClick(text, false)
         }
     }
-    return <span onClick={handleSharing}>{label}</span>
+    return (
+        <button
+            className="btn btn-sm btn-ghost font-bold h-full"
+            onClick={handleSharing}
+        >
+            {label}
+        </button>
+    )
 }
 export default ShareButton
