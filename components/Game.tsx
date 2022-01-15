@@ -101,7 +101,10 @@ export const Game = () => {
         }
 
         if (letter === '{bksp}') {
-            if (currentColumn === 0 && !finishRows[currentRow - 1]) {
+            if (currentPlace === 0) {
+                // Some people think it's funny to delete the first letter
+                return
+            } else if (currentColumn === 0 && !finishRows[currentRow - 1]) {
                 // Got to the next line without finishing on the previous
                 setBoard((l) => {
                     l[currentRow - 1][numberOfLetters - 1] = ''
