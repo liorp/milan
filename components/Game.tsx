@@ -31,6 +31,20 @@ const generateButtonTheme = (keys: Record<LetterType, string[]>) => {
     return buttons
 }
 
+const getCoordinates = (
+    board: Board
+): { currentPlace: number; currentRow: number; currentColumn: number } => {
+    const flatBoard = board.flat()
+    const currentPlace = flatBoard.findIndex((l) => l === '')
+    const currentRow = Math.floor(currentPlace / numberOfLetters)
+    const currentColumn = currentPlace % numberOfLetters
+    return {
+        currentPlace,
+        currentRow,
+        currentColumn,
+    }
+}
+
 export const Game = () => {
     const word = useWord()
     const [board, setBoard] = useImmer<Board>(
@@ -42,7 +56,6 @@ export const Game = () => {
         Array(numberOfRows).fill(false)
     )
     const [active, setActive] = useState(true)
-    const flatBoard = board.flat()
 
     const keymap = keyboardLettersFromGuesses(
         word,
@@ -69,9 +82,7 @@ export const Game = () => {
         }
     }
 
-    const currentPlace = flatBoard.findIndex((l) => l === '')
-    const currentRow = Math.floor(currentPlace / numberOfLetters)
-    const currentColumn = currentPlace % numberOfLetters
+    const { currentPlace, currentRow, currentColumn } = getCoordinates(board)
 
     const finishedBoard = finishRows.every((e) => e === true)
     const lost = !wordInGuesses(word, board) && finishedBoard // Got to the end without guessing
@@ -80,8 +91,6 @@ export const Game = () => {
         (finishRows[currentRow - 1] || finishedBoard)
     const finishedGame = lost || won
     const numberOfGuesses = finishRows.lastIndexOf(true) + 1
-
-    const keyboard = useRef()
 
     const onKeyPress = (button) => {
         let letter = button
@@ -162,7 +171,6 @@ export const Game = () => {
 
             <div className="min-w-[22rem] min-h-[10rem] mb-2">
                 <Keyboard
-                    keyboardRef={(r) => (keyboard.current = r)}
                     theme="hg-theme-default hg-theme-ios hg-milan-theme"
                     layoutName="default"
                     layout={{
