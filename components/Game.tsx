@@ -1,4 +1,5 @@
-import React, { useRef, useState } from 'react'
+import React, { useState } from 'react'
+import useSWR from 'swr'
 import { useImmer } from 'use-immer'
 import Keyboard from 'react-simple-keyboard'
 import 'react-simple-keyboard/build/css/index.css'
@@ -16,6 +17,11 @@ import {
 import { GameBoard } from './GameBoard'
 import { GameEnd } from './GameEnd'
 import { useWord } from '../hooks/useWord'
+import axios from 'axios'
+import { delay } from '../lib/utils'
+import { WordNotInDictionary } from './WordNotInDictionary'
+
+const fetcher = async (url) => await axios.get(url).then((res) => res.data)
 
 const generateButtonTheme = (keys: Record<LetterType, string[]>) => {
     let buttons = []
@@ -45,7 +51,11 @@ const getCoordinates = (
     }
 }
 
-export const Game = () => {
+export const Game = ({
+    checkWordAgainstDictionary = true,
+}: {
+    checkWordAgainstDictionary?: boolean
+}) => {
     const word = useWord()
     const [board, setBoard] = useImmer<Board>(
         Array(numberOfRows)
@@ -55,7 +65,7 @@ export const Game = () => {
     const [finishRows, setFinishRows] = useImmer<boolean[]>(
         Array(numberOfRows).fill(false)
     )
-    const [active, setActive] = useState(true)
+    const [wordNotInList, setWordNotInList] = useState('')
 
     const keymap = keyboardLettersFromGuesses(
         word,
@@ -92,9 +102,9 @@ export const Game = () => {
     const finishedGame = lost || won
     const numberOfGuesses = finishRows.lastIndexOf(true) + 1
 
-    const onKeyPress = (button) => {
+    const onKeyPress = async (button) => {
         let letter = button
-        if (finishedGame || !active) return
+        if (finishedGame) return
 
         if (
             letter in endOfWordToRegularLetters &&
@@ -139,12 +149,23 @@ export const Game = () => {
             currentPlace === -1
         ) {
             if (letter === '{enter}') {
-                setActive(false)
+                const row =
+                    currentPlace === -1 ? numberOfRows - 1 : currentRow - 1
+                const candidate = board[row].join('')
+                if (checkWordAgainstDictionary) {
+                    const { data } = await axios.get(
+                        '/api/words?word=' + candidate
+                    )
+                    if (!data?.found) {
+                        setWordNotInList(candidate)
+                        await delay(2)
+                        setWordNotInList('')
+                        return
+                    }
+                }
                 setFinishRows((r) => {
-                    r[currentPlace === -1 ? numberOfRows - 1 : currentRow - 1] =
-                        true
+                    r[row] = true
                 })
-                setActive(true)
             }
             return
         }
@@ -166,6 +187,7 @@ export const Game = () => {
                     numberOfGuesses={numberOfGuesses}
                 />
             )}
+            {wordNotInList && <WordNotInDictionary word={wordNotInList} />}
             <GameBoard board={board} finishRows={finishRows} />
             <br />
 

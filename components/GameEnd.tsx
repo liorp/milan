@@ -2,7 +2,6 @@ import React, { useCallback, useState } from 'react'
 import {
     Board,
     emojiFromGuesses,
-    numberOfLetters,
     numberOfRows,
 } from '../controllers/GameController'
 import { useWord } from '../hooks/useWord'
@@ -63,6 +62,7 @@ export const GameEnd = ({
                 }`}
             >
                 <div className="flex flex-1 justify-between">
+                    <label>לוח הועתק!</label>
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
@@ -77,7 +77,6 @@ export const GameEnd = ({
                             d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
                         ></path>
                     </svg>
-                    <label>לוח הועתק!</label>
                 </div>
             </div>
         </div>
