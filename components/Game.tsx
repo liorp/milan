@@ -20,8 +20,6 @@ import axios from 'axios'
 import { delay } from '../lib/utils'
 import { WordNotInDictionary } from './WordNotInDictionary'
 
-const fetcher = async (url) => await axios.get(url).then((res) => res.data)
-
 const generateButtonTheme = (keys: Record<LetterType, string[]>) => {
     let buttons = []
     for (const letterType of Object.values(LetterType)) {
