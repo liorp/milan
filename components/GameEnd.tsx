@@ -7,6 +7,7 @@ import {
 import { useWord } from '../hooks/useWord'
 import ShareButton from './ShareButton'
 import { useMountedState } from 'react-use'
+import { DateTime } from 'luxon'
 
 const delay = 1100
 
@@ -47,11 +48,19 @@ export const GameEnd = ({
                 </div>
                 <div className="flex-none mr-2">
                     <ShareButton
-                        label="שיתוף"
-                        title="גם אני נפלתי למילן"
-                        text={`זה הלוח שלי
-                        ${numberOfGuesses}/${numberOfRows}:\n
-                        ${emojiFromGuesses(word, board)}\n`}
+                        label="&lrm;שיתוף"
+                        title={'\u200Eגם אני נפלתי למילן'}
+                        text={
+                            '\u200Eזה הלוח שלי' +
+                            ' ' +
+                            DateTime.now().toFormat('dd/MM/yyyy') +
+                            ' ' +
+                            numberOfGuesses +
+                            '/' +
+                            numberOfRows +
+                            ':\n' +
+                            emojiFromGuesses(word, board)
+                        }
                         onClick={onCopy}
                     />
                 </div>
@@ -63,20 +72,6 @@ export const GameEnd = ({
             >
                 <div className="flex flex-1 justify-between">
                     <label>לוח הועתק!</label>
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="#2196f3"
-                        className="w-6 h-6"
-                    >
-                        <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="2"
-                            d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                        ></path>
-                    </svg>
                 </div>
             </div>
         </div>

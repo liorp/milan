@@ -1,6 +1,6 @@
 {
     "name": "milan",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "private": true,
     "scripts": {
         "dev": "next dev -H 10.100.102.9",
@@ -31,6 +31,7 @@
         "@testing-library/react": "^12.1.2",
         "@types/gtag.js": "^0.0.8",
         "@types/jest": "^27.4.0",
+        "@types/luxon": "^2.0.9",
         "@types/node": "^17.0.8",
         "@types/react": "^17.0.38",
         "@types/react-copy-to-clipboard": "^5.0.2",
