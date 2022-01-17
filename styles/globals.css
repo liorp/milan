@@ -66,6 +66,11 @@ body {
     @apply pr-2 pl-3;
 }
 
+.word-not-in-dictionary {
+    width: clamp(5vw, 60vw, 250px);
+    left: calc((100-width) / 2);
+}
+
 @keyframes shake {
     10%,
     90% {
