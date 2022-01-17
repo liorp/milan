@@ -59,7 +59,11 @@ export const GameEnd = ({
                             '/' +
                             numberOfRows +
                             ':\n' +
-                            emojiFromGuesses(word, board)
+                            emojiFromGuesses(word, board) +
+                            '\n' +
+                            (process.env.VERCEL_URL !== undefined
+                                ? process.env.VERCEL_URL
+                                : process.env.NEXT_PUBLIC_BASE_URL)
                         }
                         onClick={onCopy}
                     />

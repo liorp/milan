@@ -38,6 +38,9 @@ export default function Home({ word }: { word: string }) {
                             <GameExplanation />
                             <span className="divider mt-0" />
                             <Game />
+                            {JSON.stringify(
+                                process.env.VERCEL_URL === undefined
+                            )}
                         </div>
                     </LogoContext.Provider>
                 </WordContext.Provider>
