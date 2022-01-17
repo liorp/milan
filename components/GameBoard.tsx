@@ -1,15 +1,16 @@
 import React from 'react'
 import { Board } from '../controllers/GameController'
 import { useWord } from '../hooks/useWord'
-import { BoardCell } from './BoardCell'
 import { BoardRow } from './BoardRow'
 
 export const GameBoard = ({
     board,
     finishRows,
+    shakeRow,
 }: {
     board: Board
     finishRows: boolean[]
+    shakeRow: number
 }) => {
     const word = useWord()
 
@@ -24,6 +25,7 @@ export const GameBoard = ({
                         finishRows={finishRows}
                         rowIndex={i}
                         row={r}
+                        shake={shakeRow === i}
                     />
                 )
             })}

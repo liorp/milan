@@ -63,6 +63,7 @@ export const Game = ({
         Array(numberOfRows).fill(false)
     )
     const [wordNotInList, setWordNotInList] = useState('')
+    const [shakeRow, setShakeRow] = useState<number>()
 
     const keymap = keyboardLettersFromGuesses(
         word,
@@ -155,8 +156,10 @@ export const Game = ({
                     )
                     if (!data?.found) {
                         setWordNotInList(candidate)
+                        setShakeRow(row)
                         await delay(2)
                         setWordNotInList('')
+                        setShakeRow(undefined)
                         return
                     }
                 }
@@ -185,7 +188,11 @@ export const Game = ({
                 />
             )}
             {wordNotInList && <WordNotInDictionary word={wordNotInList} />}
-            <GameBoard board={board} finishRows={finishRows} />
+            <GameBoard
+                board={board}
+                finishRows={finishRows}
+                shakeRow={shakeRow}
+            />
             <br />
 
             <div className="min-w-[22rem] min-h-[10rem] mb-2">

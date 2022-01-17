@@ -10,10 +10,12 @@ export const BoardRow = ({
     finishRows,
     rowIndex,
     row,
+    shake,
 }: {
     finishRows: boolean[]
     rowIndex: number
     row: string[]
+    shake: boolean
 }) => {
     const word = useWord()
 
@@ -30,6 +32,7 @@ export const BoardRow = ({
                         finishedRow={finishedRow}
                         type={type}
                         column={j}
+                        shake={shake}
                     />
                 )
             })}
