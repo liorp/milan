@@ -61,7 +61,7 @@ export const GameEnd = ({
                             ':\n' +
                             emojiFromGuesses(word, board) +
                             '\n' +
-                            (process.env.VERCEL_URL !== undefined
+                            (process.env.NODE_ENV === 'production'
                                 ? process.env.VERCEL_URL
                                 : process.env.NEXT_PUBLIC_BASE_URL)
                         }
