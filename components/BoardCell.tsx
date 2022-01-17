@@ -5,13 +5,13 @@ export const BoardCell = ({
     finishedRow,
     type,
     column,
-    shake,
+    shake = false,
 }: {
     letter: string
     finishedRow: boolean
     type: LetterType
     column: number
-    shake: boolean
+    shake?: boolean
 }) => {
     return (
         <span
