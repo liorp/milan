@@ -10,6 +10,10 @@ import { useMountedState } from 'react-use'
 import { DateTime } from 'luxon'
 
 const delay = 1100
+const url =
+    process.env.NODE_ENV === 'production'
+        ? process.env.VERCEL_URL
+        : process.env.NEXT_PUBLIC_BASE_URL
 
 export const GameEnd = ({
     won,
@@ -61,9 +65,7 @@ export const GameEnd = ({
                             ':\n' +
                             emojiFromGuesses(word, board) +
                             '\n' +
-                            (process.env.NODE_ENV === 'production'
-                                ? process.env.VERCEL_URL
-                                : process.env.NEXT_PUBLIC_BASE_URL)
+                            url
                         }
                         onClick={onCopy}
                     />
