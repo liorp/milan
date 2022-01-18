@@ -59,9 +59,7 @@ export const GameEnd = ({
                             '/' +
                             numberOfRows +
                             ':\n' +
-                            emojiFromGuesses(word, board) +
-                            '\n' +
-                            process.env.NEXT_PUBLIC_BASE_URL
+                            emojiFromGuesses(word, board)
                         }
                         onClick={onCopy}
                     />
