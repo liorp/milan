@@ -15,3 +15,5 @@ tnx https://stackoverflow.com/a/65081431/938227 for the gtag!
 tnx to https://wordleheb.web.app/ for inspiration in Hebrew!
 
 tnx to @ArnonEilat for Hebrew scraping of wikidictionary! https://github.com/NLPH/NLPH/issues/9
+
+tnx to Amir Livne Bar-on! https://github.com/amirlb/meduyeket
