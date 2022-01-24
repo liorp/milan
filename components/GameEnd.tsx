@@ -66,7 +66,7 @@ export const GameEnd = ({
                 </div>
             </div>
             <div
-                className={`alert absolute z-10 top-0 left-[32vw] w-[36vw] transition ${
+                className={`alert absolute z-20 top-0 left-[32vw] w-[36vw] transition ${
                     !copied && 'opacity-0'
                 }`}
             >
