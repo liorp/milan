@@ -101,6 +101,18 @@ describe('emojiFromGuesses', () => {
         ])
         expect(result).toEqual(`⬛🟩🟨🟨\n⬛🟩⬛🟩\n⬛🟨🟨🟩\n🟩🟩🟩🟩`)
     })
+    it('should generate a hebrew emoji board', () => {
+        const result = emojiFromGuesses(
+            'מילה',
+            [
+                ['ב', 'ק', 'ב', 'ה'],
+                ['פ', 'מ', 'ל', 'ה'],
+                ['מ', 'י', 'ל', 'ה'],
+            ],
+            true
+        )
+        expect(result).toEqual(`🟩⬛⬛⬛\n🟩🟩🟨⬛\n🟩🟩🟩🟩`)
+    })
     it('should generate a missing emoji board', () => {
         const result = emojiFromGuesses('word', [['', '', '', '']])
         expect(result).toEqual(``)
@@ -146,13 +158,18 @@ describe('keyboardLettersFromGuesses', () => {
             ט: LetterType.Unevaluated,
             י: LetterType.Unevaluated,
             כ: LetterType.Unevaluated,
+            ך: LetterType.Unevaluated,
             ל: LetterType.Unevaluated,
             מ: LetterType.Unevaluated,
+            ם: LetterType.Unevaluated,
             נ: LetterType.Unevaluated,
+            ן: LetterType.Unevaluated,
             ס: LetterType.Unevaluated,
             ע: LetterType.Unevaluated,
             פ: LetterType.Unevaluated,
+            ף: LetterType.Unevaluated,
             צ: LetterType.Unevaluated,
+            ץ: LetterType.Unevaluated,
             ק: LetterType.Unevaluated,
             ר: LetterType.Correct,
             ש: LetterType.Unevaluated,
@@ -173,15 +190,55 @@ describe('keyboardLettersFromGuesses', () => {
             ט: LetterType.Unevaluated,
             י: LetterType.Unevaluated,
             כ: LetterType.Unevaluated,
+            ך: LetterType.Unevaluated,
             ל: LetterType.Miss,
             מ: LetterType.Unevaluated,
+            ם: LetterType.Unevaluated,
             נ: LetterType.Unevaluated,
+            ן: LetterType.Unevaluated,
             ס: LetterType.Unevaluated,
             ע: LetterType.Unevaluated,
             פ: LetterType.Unevaluated,
+            ף: LetterType.Unevaluated,
             צ: LetterType.Unevaluated,
+            ץ: LetterType.Unevaluated,
             ק: LetterType.Unevaluated,
             ר: LetterType.Unevaluated,
+            ש: LetterType.Unevaluated,
+            ת: LetterType.Unevaluated,
+        })
+    })
+    it('should miss regular letters', () => {
+        const result = keyboardLettersFromGuesses('בור', [
+            ['צ', 'ו', 'ר'],
+            ['ב', 'ו', 'ר'],
+        ])
+        expect(result).toEqual({
+            א: LetterType.Unevaluated,
+            ב: LetterType.Correct,
+            ג: LetterType.Unevaluated,
+            ד: LetterType.Unevaluated,
+            ה: LetterType.Unevaluated,
+            ו: LetterType.Correct,
+            ז: LetterType.Unevaluated,
+            ח: LetterType.Unevaluated,
+            ט: LetterType.Unevaluated,
+            י: LetterType.Unevaluated,
+            כ: LetterType.Unevaluated,
+            ך: LetterType.Unevaluated,
+            ל: LetterType.Unevaluated,
+            מ: LetterType.Unevaluated,
+            ם: LetterType.Unevaluated,
+            נ: LetterType.Unevaluated,
+            ן: LetterType.Unevaluated,
+            ס: LetterType.Unevaluated,
+            ע: LetterType.Unevaluated,
+            פ: LetterType.Unevaluated,
+            ף: LetterType.Unevaluated,
+            צ: LetterType.Miss,
+            ץ: LetterType.Unevaluated,
+            ק: LetterType.Unevaluated,
+            ר: LetterType.Correct,
             ש: LetterType.Unevaluated,
             ת: LetterType.Unevaluated,
         })

@@ -82,14 +82,27 @@ export const keyboardLettersFromGuesses = (word: string, guesses: Board) => {
     return letters
 }
 
-export const emojiFromGuesses = (word: string, guesses: Board): string => {
+export const emojiFromGuesses = (
+    word: string,
+    guesses: Board,
+    rtl = false
+): string => {
     let content = []
     for (let i = 0; i < guesses.length; i++) {
-        content.push(
-            getCorrectAndPresent(word, guesses[i])
-                .map((l) => letterTypeToEmoji[l])
-                .join('')
-        )
+        if (rtl) {
+            content.push(
+                getCorrectAndPresent(word, guesses[i])
+                    .map((l) => letterTypeToEmoji[l])
+                    .reverse()
+                    .join('')
+            )
+        } else {
+            content.push(
+                getCorrectAndPresent(word, guesses[i])
+                    .map((l) => letterTypeToEmoji[l])
+                    .join('')
+            )
+        }
     }
     return content.join('\n')
 }

@@ -25,6 +25,7 @@ export const GameEnd = ({
     const word = useWord()
     const [copied, setCopied] = useState(false)
     const isMounted = useMountedState()
+    const emojis = emojiFromGuesses(word, board, true)
 
     const onCopy = useCallback((text: string, success: boolean) => {
         success && setCopied(true)
@@ -59,7 +60,7 @@ export const GameEnd = ({
                             '/' +
                             numberOfRows +
                             ':\n' +
-                            emojiFromGuesses(word, board)
+                            emojis
                         }
                         onClick={onCopy}
                     />
