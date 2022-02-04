@@ -13,10 +13,18 @@ export const CustomHead = () => {
             <meta name="description" content="a cool game of words!" />
             <meta property="og:url" content="https://milan.liorp.dev/" />
             <meta property="og:description" content="a cool game of words!" />
-            <meta property="og:image" content="/favicon.png" />
+            <meta property="og:image" content="/icons/favicon.png" />
             <meta property="og:locale" content="he_IL" />
+            <meta name="theme-color" content="#9266cc" />
 
-            <link rel="icon" href="/favicon.ico" />
+            <link rel="manifest" href="/manifest.json" />
+            <link
+                rel="apple-touch-icon"
+                href="/icons/apple-touch-icon.png"
+            ></link>
+
+            <link rel="icon" href="/icons/favicon.ico" />
+
             <link rel="preconnect" href="https://fonts.googleapis.com" />
             <link
                 rel="preconnect"
