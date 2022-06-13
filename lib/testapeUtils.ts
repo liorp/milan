@@ -2,6 +2,7 @@ const SERVER_ADDRESS = 'http://127.0.0.1:13433'
 
 export const sendCustomEvent = async (type: string, info: string) => {
     const data = {
+        time: new Date().getTime() / 1000,
         class: 'CustomEvent',
         type,
         info,
