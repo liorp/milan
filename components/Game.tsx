@@ -19,6 +19,7 @@ import { useWord } from '../hooks/useWord'
 import axios from 'axios'
 import { delay } from '../lib/utils'
 import { WordNotInDictionary } from './WordNotInDictionary'
+import { sendCustomEvent } from '../lib/testapeUtils'
 
 const generateButtonTheme = (keys: Record<LetterType, string[]>) => {
     let buttons = []
@@ -101,6 +102,7 @@ export const Game = ({
     const numberOfGuesses = finishRows.lastIndexOf(true) + 1
 
     const onKeyPress = async (button) => {
+        sendCustomEvent('Pressed button', JSON.stringify(button))
         let letter = button
         if (finishedGame) return
 
