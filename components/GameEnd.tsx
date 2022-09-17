@@ -37,44 +37,54 @@ export const GameEnd = ({
     }, [])
 
     return (
-        <div
-            className={`mb-2 transition alert ${lost && 'alert-error'} ${
-                won && 'alert-success'
-            }`}
-        >
-            <div className="min-w-full flex items-center">
-                <div className="flex-1">
-                    {won && 'איזה כיף! '}
-                    המילה הייתה {word}! {lost && 'איך לא ידעת כפרה?'}
-                </div>
-                <div className="flex-none mr-2">
-                    <ShareButton
-                        label="&lrm;שיתוף"
-                        title={'\u200Eגם אני נפלתי למילן'}
-                        text={
-                            '\u200Eזה הלוח שלי' +
-                            ' ' +
-                            DateTime.now().toFormat('dd/MM/yyyy') +
-                            ' ' +
-                            numberOfGuesses +
-                            '/' +
-                            numberOfRows +
-                            ':\n' +
-                            emojis
-                        }
-                        onClick={onCopy}
-                    />
-                </div>
-            </div>
+        <>
             <div
-                className={`alert absolute z-20 top-0 left-[32vw] w-[36vw] transition ${
-                    !copied && 'opacity-0'
+                className={`mb-2 transition alert ${lost && 'alert-error'} ${
+                    won && 'alert-success'
                 }`}
             >
-                <div className="flex flex-1 justify-between">
-                    <label>לוח הועתק!</label>
+                <div className="min-w-full flex items-center">
+                    <div className="flex-1">
+                        {won && 'איזה כיף! '}
+                        המילה הייתה {word}! {lost && 'איך לא ידעת כפרה?'}
+                    </div>
+                    <div className="flex-none mr-2">
+                        <ShareButton
+                            label="&lrm;שיתוף"
+                            title={'\u200Eגם אני נפלתי למילן'}
+                            text={
+                                '\u200Eזה הלוח שלי' +
+                                ' ' +
+                                DateTime.now().toFormat('dd/MM/yyyy') +
+                                ' ' +
+                                numberOfGuesses +
+                                '/' +
+                                numberOfRows +
+                                ':\n' +
+                                emojis
+                            }
+                            onClick={onCopy}
+                        />
+                    </div>
+                </div>
+                <div
+                    className={`alert absolute z-20 top-0 left-[32vw] w-[36vw] transition ${
+                        !copied && 'opacity-0'
+                    }`}
+                >
+                    <div className="flex flex-1 justify-between">
+                        <label>לוח הועתק!</label>
+                    </div>
                 </div>
             </div>
-        </div>
+            <ins
+                class="adsbygoogle"
+                style="display:block"
+                data-ad-client="ca-pub-4529248472834919"
+                data-ad-slot="8125434540"
+                data-ad-format="auto"
+                data-full-width-responsive="true"
+            ></ins>
+        </>
     )
 }

@@ -20,7 +20,7 @@ class MyDocument extends Document {
         return (
             <Html lang="he" dir="rtl">
                 <Head>
-                    {/* enable analytics script only for production */}
+                    {/* enable analytics and ads script only for production */}
                     {isProduction && (
                         <>
                             <script
@@ -40,6 +40,15 @@ class MyDocument extends Document {
           `,
                                 }}
                             />
+                            <script
+                                async
+                                src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4529248472834919"
+                                crossorigin="anonymous"
+                            />
+                            <script>
+                                (adsbygoogle = window.adsbygoogle || []).push({}
+                                );
+                            </script>
                         </>
                     )}
                 </Head>
