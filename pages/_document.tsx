@@ -43,7 +43,7 @@ class MyDocument extends Document {
                             <script
                                 async
                                 src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4529248472834919"
-                                crossorigin="anonymous"
+                                crossOrigin="anonymous"
                             />
                             <script>
                                 (adsbygoogle = window.adsbygoogle || []).push({}
