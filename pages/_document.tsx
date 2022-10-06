@@ -45,10 +45,6 @@ class MyDocument extends Document {
                                 src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4529248472834919"
                                 crossOrigin="anonymous"
                             />
-                            <script>
-                                (adsbygoogle = window.adsbygoogle || []).push({}
-                                );
-                            </script>
                         </>
                     )}
                 </Head>

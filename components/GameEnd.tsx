@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import {
     Board,
     emojiFromGuesses,
@@ -34,6 +34,14 @@ export const GameEnd = ({
                 setCopied(false)
             }
         }, delay)
+    }, [])
+
+    useEffect(() => {
+        try {
+            ;(window.adsbygoogle = window.adsbygoogle || []).push({})
+        } catch (err) {
+            console.log(err)
+        }
     }, [])
 
     return (
