@@ -178,7 +178,7 @@ export const Game = ({
     }
 
     return (
-        <div className="w-full h-full flex-grow flex flex-col min-h-[14rem] items-center justify-between">
+        <div className="w-[100vw] h-full flex-grow flex flex-col min-h-[14rem] items-center justify-between">
             {finishedGame && (
                 <GameEnd
                     won={won}
