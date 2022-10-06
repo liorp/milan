@@ -87,7 +87,7 @@ export const GameEnd = ({
             </div>
             <ins
                 className="adsbygoogle"
-                style={{ display: 'block' }}
+                style={{ display: 'inline-block', width: '100%' }}
                 data-ad-client="ca-pub-4529248472834919"
                 data-ad-slot="8125434540"
                 data-ad-format="auto"
