@@ -91,7 +91,7 @@ export const GameEnd = ({
                 data-ad-client="ca-pub-4529248472834919"
                 data-ad-slot="8125434540"
                 data-ad-format="auto"
-                data-full-width-responsive="true"
+                data-full-width-responsive
             ></ins>
         </>
     )
