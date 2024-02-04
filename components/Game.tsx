@@ -117,7 +117,7 @@ export const Game = ({
             letter = regularToEndOfWordLetters[letter]
         }
 
-        if (letter === '{bksp}') {
+        if (letter === '{backspace}') {
             if (currentPlace === 0) {
                 // Some people think it's funny to delete the first letter
                 return
@@ -203,7 +203,7 @@ export const Game = ({
                         default: [
                             ' פ ם ן ו ט א ר ק ',
                             ' ף ך ל ח י ע כ ג ד ש ',
-                            '{bksp} ץ ת צ מ נ ה ב ס ז {enter}',
+                            '{backspace} ץ ת צ מ נ ה ב ס ז {enter}',
                         ],
                     }}
                     buttonTheme={[
@@ -213,7 +213,7 @@ export const Game = ({
                         },
                         ...generateButtonTheme(keys),
                     ]}
-                    display={{ '{bksp}': '⌫', '{enter}': 'יאללה' }}
+                    display={{ '{backspace}': '⌫', '{enter}': 'יאללה' }}
                     disableButtonHold
                     onKeyPress={onKeyPress}
                     physicalKeyboardHighlight={!finishedGame}
