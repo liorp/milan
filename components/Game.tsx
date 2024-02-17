@@ -11,42 +11,14 @@ import {
     regularToEndOfWordLetters,
     keyboardLettersFromGuesses,
     LetterType,
-    letterTypeToBgColor,
 } from '../controllers/GameController'
 import { GameBoard } from './GameBoard'
 import { GameEnd } from './GameEnd'
 import { useWord } from '../hooks/useWord'
 import axios from 'axios'
-import { delay } from '../lib/utils'
+import { createConfetti, delay } from '../lib/utils'
 import { WordNotInDictionary } from './WordNotInDictionary'
-
-const generateButtonTheme = (keys: Record<LetterType, string[]>) => {
-    let buttons = []
-    for (const letterType of Object.values(LetterType)) {
-        if (keys[letterType]?.length) {
-            const button = {
-                class: letterTypeToBgColor[letterType],
-                buttons: keys[letterType].join(' '),
-            }
-            buttons.push(button)
-        }
-    }
-    return buttons
-}
-
-const getCoordinates = (
-    board: Board
-): { currentPlace: number; currentRow: number; currentColumn: number } => {
-    const flatBoard = board.flat()
-    const currentPlace = flatBoard.findIndex((l) => l === '')
-    const currentRow = Math.floor(currentPlace / numberOfLetters)
-    const currentColumn = currentPlace % numberOfLetters
-    return {
-        currentPlace,
-        currentRow,
-        currentColumn,
-    }
-}
+import { getCoordinates, generateButtonTheme } from '../lib/utils'
 
 export const Game = ({
     checkWordAgainstDictionary = true,
@@ -150,6 +122,7 @@ export const Game = ({
                 const row =
                     currentPlace === -1 ? numberOfRows - 1 : currentRow - 1
                 const candidate = board[row].join('')
+                if (candidate === 'ליאור') createConfetti()
                 if (checkWordAgainstDictionary) {
                     const { data } = await axios.get(
                         '/api/words?word=' + candidate
